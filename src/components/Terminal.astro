@@ -1,0 +1,95 @@
+<div class="terminal-output" id="terminal-output"></div>
+<div class="terminal">
+  <span class="prompt">candela@portfolio:~$</span>
+  <input
+    id="terminal-input"
+    type="text"
+    autocomplete="off"
+    spellcheck="false"
+    aria-label="Terminal interactiva: escribí 'ayuda' para ver comandos"
+    placeholder="escribí 'ayuda' y enter..."
+  />
+  <span class="hint">ayuda · perfil · skills · proyectos · educacion · contacto</span>
+</div>
+
+<script>
+  const input = document.getElementById("terminal-input") as HTMLInputElement;
+  const output = document.getElementById("terminal-output") as HTMLDivElement;
+
+  const historial: string[] = [];
+  let historialIndex = -1;
+
+  const secciones = ["perfil", "skills", "proyectos", "educacion", "contacto"];
+
+  function imprimir(linea: string, esEco = false) {
+    const p = document.createElement("p");
+    if (esEco) p.classList.add("echo");
+    p.textContent = linea;
+    output.appendChild(p);
+    output.classList.add("open");
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function irA(id: string) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function ejecutar(raw: string) {
+    const cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+
+    imprimir(raw, true);
+    historial.push(raw);
+    historialIndex = historial.length;
+
+    if (cmd === "ayuda" || cmd === "help") {
+      imprimir("comandos: " + secciones.join(" · ") + " · whoami · limpiar");
+    } else if (secciones.includes(cmd)) {
+      irA(cmd);
+      imprimir(`→ abriendo ${cmd}.${extDe(cmd)}`);
+    } else if (cmd === "whoami") {
+      imprimir("Candela Quevedo — futura desarrolladora de software.");
+    } else if (cmd === "sudo dame-trabajo" || cmd === "sudo hire-me") {
+      imprimir("permiso concedido. escribí 'contacto' para escribirme 🙂");
+    } else if (cmd === "limpiar" || cmd === "clear") {
+      output.innerHTML = "";
+      output.classList.remove("open");
+    } else {
+      imprimir(`comando no encontrado: ${cmd} (probá 'ayuda')`);
+    }
+  }
+
+  function extDe(id: string) {
+    const mapa: Record<string, string> = {
+      perfil: "md",
+      skills: "json",
+      proyectos: "js",
+      educacion: "yml",
+      contacto: "sh",
+    };
+    return mapa[id] ?? "";
+  }
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      ejecutar(input.value);
+      input.value = "";
+    } else if (e.key === "ArrowUp") {
+      if (historialIndex > 0) {
+        historialIndex -= 1;
+        input.value = historial[historialIndex] ?? "";
+      }
+      e.preventDefault();
+    } else if (e.key === "ArrowDown") {
+      if (historialIndex < historial.length - 1) {
+        historialIndex += 1;
+        input.value = historial[historialIndex] ?? "";
+      } else {
+        historialIndex = historial.length;
+        input.value = "";
+      }
+      e.preventDefault();
+    }
+  });
+</script>

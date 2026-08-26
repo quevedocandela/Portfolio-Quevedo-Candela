@@ -1,0 +1,18 @@
+---
+import { archivos } from "../data/nav.js";
+---
+
+<aside class="sidebar">
+  <p class="explorer-label">EXPLORADOR</p>
+  <p class="folder">candela-quevedo</p>
+  <nav id="sidebar-nav">
+    {
+      archivos.map((a) => (
+        <a href={`#${a.id}`} data-target={a.id}>
+          <span>{a.nombre}</span>
+          <span class="ext">.{a.ext}</span>
+        </a>
+      ))
+    }
+  </nav>
+</aside>

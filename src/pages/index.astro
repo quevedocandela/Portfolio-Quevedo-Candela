@@ -1,11 +1,265 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import TitleBar from "../components/TitleBar.astro";
+import Sidebar from "../components/Sidebar.astro";
+import FileTabs from "../components/FileTabs.astro";
+import Terminal from "../components/Terminal.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { proyectos } from "../data/proyectos.js";
 ---
 
 <Layout>
-	<Welcome />
+  <div class="app">
+    <TitleBar />
+    <FileTabs />
+
+    <div class="app-body">
+      <Sidebar />
+
+      <main class="editor">
+        <div class="editor-content">
+          <!-- ============ perfil.md ============ -->
+          <section id="perfil" class="file">
+            <p class="file-heading">perfil.md</p>
+            <h2 class="section-title">
+              <span class="k">Candela Quevedo</span><span class="cursor"
+              ></span>
+            </h2>
+            <p class="prose-line" style="color: var(--text-dim); margin-top: -0.75rem; margin-bottom: 1.5rem;">
+              Desarrolladora de Software · Análisis de Datos · Rojas, Buenos Aires
+            </p>
+            <div class="code-lines">
+              <p class="line prose-line">
+                Estudiante avanzada de la <span class="f">Tecnicatura en Desarrollo
+                de Software</span> y de la <span class="f">Diplomatura en Programación
+                y Recolección de Datos</span> (UBA).
+              </p>
+              <p class="line prose-line">
+                Combino conocimientos sólidos en desarrollo de software con
+                habilidades en análisis de datos.
+              </p>
+              <p class="line blank"></p>
+              <p class="line prose-line">
+                <span class="c">// lo que me define</span>
+              </p>
+              <p class="line prose-line">
+                Curiosidad constante y perseverancia frente a problemas
+                técnicos complejos.
+              </p>
+              <p class="line blank"></p>
+              <p class="line prose-line">
+                Busco mi primera experiencia profesional en tecnología para
+                aplicar y seguir expandiendo lo que sé.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ skills.json ============ -->
+          <section id="skills" class="file">
+            <p class="file-heading">skills.json</p>
+            <h2 class="section-title">
+              habilidades<span class="punct">_tecnicas</span>
+            </h2>
+            <div class="code-lines">
+              <p class="line"><span class="dim">{`{`}</span></p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"lenguajes"</span>: [<span class="f"
+                  >"Python"</span
+                >, <span class="f">"JavaScript"</span>, <span class="f"
+                  >"Java"</span
+                >, <span class="f">"HTML5"</span>, <span class="f">"CSS3"</span
+                >, <span class="f">"C++ (básico)"</span>],
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"bases_de_datos"</span>: [<span
+                  class="f">"SQL"</span
+                >],
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"herramientas"</span>: [<span
+                  class="f">"Git"</span
+                >, <span class="f">"GitHub"</span>, <span class="f"
+                  >"VS Code"</span
+                >],
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"paradigmas"</span>: [<span
+                  class="f">"Programación Orientada a Objetos"</span
+                >, <span class="f">"Desarrollo web frontend"</span>],
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"metodologias"</span>: [<span
+                  class="f">"Agile"</span
+                >, <span class="f">"Scrum"</span>],
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="s">"idiomas"</span>: {`{`} <span class="s"
+                  >"español"</span
+                >: <span class="f">"nativo"</span>, <span class="s"
+                  >"inglés"</span
+                >: <span class="f">"básico — lectura técnica"</span> {`}`}
+              </p>
+              <p class="line"><span class="dim">{`}`}</span></p>
+            </div>
+          </section>
+
+          <!-- ============ proyectos.js ============ -->
+          <section id="proyectos" class="file">
+            <p class="file-heading">proyectos.js</p>
+            <h2 class="section-title">
+              <span class="k">const</span> proyectos<span class="punct"> = [</span
+              >...<span class="punct">]</span>
+            </h2>
+            <p class="prose-line" style="color: var(--text-dim);">
+              <span class="c">// este portfolio se actualiza a medida que termino cada proyecto</span>
+            </p>
+            <div class="proyectos-grid">
+              {proyectos.map((p) => <ProjectCard proyecto={p} />)}
+            </div>
+          </section>
+
+          <!-- ============ educacion.yml ============ -->
+          <section id="educacion" class="file">
+            <p class="file-heading">educacion.yml</p>
+            <h2 class="section-title">trayectoria<span class="punct">:</span></h2>
+            <div class="code-lines">
+              <p class="line">
+                <span class="k">- institucion</span>: <span class="s"
+                  >Instituto N°125, Rojas</span
+                >
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">titulo</span>: Tecnicatura
+                Superior en Desarrollo de Software
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">periodo</span>: <span class="w"
+                  >2024–2026 (en curso, último año)</span
+                >
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">enfoque</span>: POO, bases de
+                datos, desarrollo web, metodologías ágiles
+              </p>
+              <p class="line blank"></p>
+              <p class="line">
+                <span class="k">- institucion</span>: <span class="s"
+                  >UBA — Plan Puentes</span
+                >
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">titulo</span>: Diplomatura en
+                Iniciación a la Programación y Ciencias de Datos
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">periodo</span>: <span class="w"
+                  >2025–2026 (en curso)</span
+                >
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">enfoque</span>: recolección,
+                procesamiento y análisis de datos con Python
+              </p>
+              <p class="line blank"></p>
+              <p class="line">
+                <span class="k">- institucion</span>: <span class="s"
+                  >ENSNA N°30, Rojas</span
+                >
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">titulo</span>: Bachiller en
+                Comunicación
+              </p>
+              <p class="line">
+                &nbsp;&nbsp;<span class="dim">periodo</span>: <span class="c"
+                  >egresada 2022</span
+                >
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ contacto.sh ============ -->
+          <section id="contacto" class="file">
+            <p class="file-heading">contacto.sh</p>
+            <h2 class="section-title">
+              <span class="punct">#!/bin/sh</span>
+            </h2>
+            <div class="code-lines">
+              <p class="line">
+                <span class="dim">$</span> <span class="f">cat</span> estado.txt
+              </p>
+              <p class="line">
+                <span class="c">Disponible para nuevas oportunidades 🟢</span>
+              </p>
+              <p class="line blank"></p>
+              <p class="line">
+                <span class="dim">$</span> <span class="f">echo</span> $EMAIL
+              </p>
+              <p class="line">
+                <a href="mailto:quevedocandela05@gmail.com"
+                  >quevedocandela05@gmail.com</a
+                >
+              </p>
+              <p class="line blank"></p>
+              <p class="line">
+                <span class="dim">$</span> <span class="f">open</span> github
+              </p>
+              <p class="line">
+                <a
+                  href="https://github.com/quevedocandela"
+                  target="_blank"
+                  rel="noopener noreferrer">github.com/quevedocandela</a
+                >
+              </p>
+              <p class="line blank"></p>
+              <p class="line">
+                <span class="dim">$</span> <span class="f">open</span> linkedin
+              </p>
+              <p class="line">
+                <a
+                  href="https://linkedin.com/in/candela-quevedo05"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >linkedin.com/in/candela-quevedo05</a
+                >
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <Terminal />
+  </div>
+
+  <script>
+    // Resalta el tab y el item del explorer correspondientes a la sección
+    // visible mientras se hace scroll.
+    const secciones = document.querySelectorAll("section.file");
+    const tabLinks = document.querySelectorAll("#file-tabs a");
+    const sidebarLinks = document.querySelectorAll("#sidebar-nav a");
+
+    function marcarActivo(id: string) {
+      tabLinks.forEach((a) =>
+        a.classList.toggle("active", a.getAttribute("data-target") === id)
+      );
+      sidebarLinks.forEach((a) =>
+        a.classList.toggle("active", a.getAttribute("data-target") === id)
+      );
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            marcarActivo(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+    );
+
+    secciones.forEach((s) => observer.observe(s));
+    marcarActivo("perfil");
+  </script>
 </Layout>

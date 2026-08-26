@@ -1,0 +1,15 @@
+---
+//src/components/FileTabs.astro
+import { archivos } from "../data/nav.js";
+---
+
+<div class="tabs" id="file-tabs">
+  {
+    archivos.map((a) => (
+      <a href={`#${a.id}`} data-target={a.id}>
+        <span>{a.nombre}</span>
+        <span class="ext">.{a.ext}</span>
+      </a>
+    ))
+  }
+</div>
