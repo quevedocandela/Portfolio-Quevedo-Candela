@@ -1,0 +1,173 @@
+---
+import { navItems, perfil } from "../data/site";
+---
+
+<header class="nav">
+    <div class="nav-inner">
+        <a href="#top" class="nav-brand" aria-label="Volver arriba">
+            <span class="dot dot-coral"></span>
+            <span class="dot dot-lime"></span>
+            <span class="dot dot-cyan"></span>
+            <span class="brand-name">{perfil.nombre.split("")[0].toLowerCase}</span>
+        </a>
+        <nav class="tabs" aria-label="Selecciones del portfolio">
+            {navItems.map((item) =>(
+                <a class={'tam tab-${item.accent}'} href={item.href}>
+                    {item.label}
+                </a>
+            ))}
+        </nav>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="tabs-mobile" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+        <nav class="tabs tabs-mobile" id="tabs-mobile" aria-label="Secciones del portfolio (móvil)">
+            {navItems.map((item) => (
+            <a class={`tab tab-${item.accent}`} href={item.href}>
+                {item.label}
+            </a>
+            ))}
+        </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const mobileTabs = document.getElementById("tabs-mobile");
+  toggle?.addEventListener("click", () => {
+    const isOpen = mobileTabs?.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  });
+  mobileTabs?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      mobileTabs.classList.remove("open");
+      toggle?.setAttribute("aria-expanded", "false");
+    })
+  );
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    background: rgba(26, 16, 37, 0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+   .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-coral { background: var(--coral); }
+  .dot-lime { background: var(--lime); }
+  .dot-cyan { background: var(--cyan); }
+
+  .brand-name {
+    margin-left: 4px;
+    font-size: 0.95rem;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 8px 14px;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .tab:hover { background: var(--bg-elevated); color: var(--text); }
+  .tab-coral:hover, .tab-coral:focus-visible { border-color: var(--coral); color: var(--coral); }
+  .tab-lime:hover, .tab-lime:focus-visible { border-color: var(--lime); color: var(--lime); }
+  .tab-cyan:hover, .tab-cyan:focus-visible { border-color: var(--cyan); color: var(--cyan); }
+  .tab-violet:hover, .tab-violet:focus-visible { border-color: var(--violet); color: var(--violet); }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-toggle span {
+    width: 20px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+
+  .tabs-mobile {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .nav-inner .tabs { display: none; }
+    .nav-toggle { display: flex; }
+    .tabs-mobile {
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
+    .tabs-mobile.open {
+      max-height: 320px;
+    }
+    .tabs-mobile .tab {
+      padding: 14px 24px;
+      border-radius: 0;
+      border-bottom: 1px solid var(--border);
+      border-left: 2px solid transparent;
+    }
+    .tabs-mobile .tab-coral:hover { border-left-color: var(--coral); }
+    .tabs-mobile .tab-lime:hover { border-left-color: var(--lime); }
+    .tabs-mobile .tab-cyan:hover { border-left-color: var(--cyan); }
+    .tabs-mobile .tab-violet:hover { border-left-color: var(--violet); }
+  }
+</style>

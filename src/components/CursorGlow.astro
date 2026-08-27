@@ -1,0 +1,29 @@
+---
+// Halo dorado que sigue el cursor con un pequeño retraso. Se oculta solo en
+// pantallas táctiles y si el usuario prefiere movimiento reducido (ver CSS global).
+---
+
+<div class="cursor-glow" id="cursor-glow"></div>
+
+<script>
+  const glow = document.getElementById('cursor-glow');
+  if (glow) {
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let targetX = x;
+    let targetY = y;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    });
+
+    function loop() {
+      x += (targetX - x) * 0.12;
+      y += (targetY - y) * 0.12;
+      if (glow) glow.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+</script>

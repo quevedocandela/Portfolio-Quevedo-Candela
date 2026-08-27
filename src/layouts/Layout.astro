@@ -1,6 +1,8 @@
----
-// src/layouts/Layout.astro
-import "../styles/global.css";
+--- 
+import style from "../style/global.css";
+import { perfil } from "../data/site";
+import Starfield from "../components/Starfield.astro";
+import CursorGlow from "../components/CursorGlow.astro";
 
 interface Props {
   title?: string;
@@ -8,27 +10,24 @@ interface Props {
 }
 
 const {
-  title = "Candela Quevedo — portfolio.astro",
-  description = "Desarrolladora de software y análisis de datos. Portfolio de Candela Quevedo.",
+  title ='${perfil.nombre} - ${perfil.rol',
+  description = perfil.tagline,
 } = Astro.props;
 ---
-
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
+
   <body>
+    <Starfield />
+    <CursorGlow />
     <slot />
   </body>
 </html>
