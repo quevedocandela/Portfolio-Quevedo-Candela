@@ -1,0 +1,91 @@
+---
+import { experiencia } from "../data/site";
+---
+
+<section class="section" id="experiencia">
+  <div class="container">
+    <div class="arcane-card" data-reveal>
+      <div class="arcane-head">
+        <span class="arcane-numeral">IV</span>
+        <div>
+          <h2 class="arcane-name">La Luna</h2>
+          <p class="arcane-sub">Experiencia y educación</p>
+        </div>
+      </div>
+
+      <ol class="timeline">
+        {experiencia.map((e) => (
+          <li class="timeline-item">
+            <span class={`tag ${e.tipo === "Educación" ? "tag-cyan" : "tag-coral"}`}>
+              {e.tipo === "Educación" ? "Educación" : "laboral"}
+            </span>
+            <h3>{e.titulo}</h3>
+            <p class="timeline-meta">{e.institucion} · {e.periodo}</p>
+            <p class="timeline-desc">{e.descripcion}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 2px solid var(--border);
+    max-width: 700px;
+  }
+
+  .timeline-item {
+    padding: 0 0 32px 28px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 2px solid var(--violet);
+  }
+
+  .timeline-item h3 {
+    font-size: 1.1rem;
+    margin: 8px 0 4px;
+  }
+
+  .timeline-meta {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0 0 10px;
+  }
+
+  .timeline-desc {
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+
+  .tag-cyan { color: var(--cyan); border-color: var(--cyan); }
+  .tag-coral { color: var(--coral); border-color: var(--coral); }
+</style>

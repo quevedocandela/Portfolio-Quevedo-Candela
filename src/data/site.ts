@@ -1,12 +1,13 @@
 export const perfil = {
     nombre: "Quevedo Candela",
     rol: "Desarrolladora de Software",
-    tagline: "'exploicar la base de la carrera'",
-    ubiccion: "Argentina",
+    tagline: "Transformo necesidades complejas en software eficiente, limpio y escalable, conectando una arquitectura robusta en el backend con una experiencia fluida e intuitiva en el frontend.",
+    ubicacion: "Argentina",
     email: "quevedocandela05@gmail.com",
     cvUrl: "/cv.pdf",
     github: "github.com/quevedocandela",
     linkedin: "http://linkedin.com/in/candela-quevedo05",
+    fotoUrl: "",
 };
 
 export const sobreMi = {
@@ -19,7 +20,7 @@ export const sobreMi = {
     datos: [
         { label: "Enfoque", valor:"Desarrollo web & datos" },
         { label:"Estudiando", valor: "Tecnicatura superior en desarrollo de software." },
-        {label: "Disponibilidad", valor: "Full-time"},
+        { label: "Disponibilidad", valor: "Full-time"},
     ],
 };
 
@@ -30,7 +31,7 @@ export const skills = [
     { categoria: "Paradigmas & metodologías", items: ["POO", "Desarrollo web forntend", "Agile / Scrum"] },
 ];
 
-export const proyector = [
+export const proyectos = [
     {
         nombre: "Crimen pasional y femicidio",
         descripcion: "El presente trabajo tiene como objetivo profundizar en los hechos ocurridos en la ciudad de Rojas, centrándose en casos que impulsaron nuevos debates y un crecimiento en la lucha colectiva contra los femicidios.",
@@ -68,9 +69,9 @@ export const experiencia = [
 ];
 
 export const navItems = [
-    { href: "#sobre-mi", label: "sobre-mi.tsx", accent: "coral" },
-    { href: "#proyectos", label: "proyectos.tsx", accent: "cyan" },
-    { href: "#skills", label: "skills.json", accent: "lime" },
-    { href: "#experiencia", label: "experiencia.md", accent: "violet" },
-    { href: "#contacto", label: "contacto.sh", accent: "coral"},
+  { href: "#sobre-mi", label: "Sobre mí", accent: "coral" },
+  { href: "#proyectos", label: "Proyectos", accent: "cyan" },
+  { href: "#skills", label: "Skills", accent: "lime" },
+  { href: "#experiencia", label: "Experiencia", accent: "violet" },
+  { href: "#contacto", label: "Contacto", accent: "coral" },
 ];

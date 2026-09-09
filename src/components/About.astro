@@ -1,0 +1,117 @@
+---
+import { sobreMi, perfil } from "../data/site";
+---
+
+<section class="section" id="sobre-mi">
+  <div class="container">
+    <div class="arcane-card" data-reveal>
+      <div class="arcane-head">
+        <span class="arcane-numeral">I</span>
+        <div>
+          <h2 class="arcane-name">El Sol</h2>
+          <p class="arcane-sub">Sobre mí</p>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-photo" aria-hidden={perfil.fotoUrl ? "false" : "true"}>
+          {perfil.fotoUrl ? (
+            <img src={perfil.fotoUrl} alt={perfil.nombre} />
+          ) : (
+            <div class="avatar-placeholder">
+              <span>{perfil.nombre.split(" ").map((n) => n[0]).slice(0, 2).join("")}</span>
+            </div>
+          )}
+        </div>
+
+        <div class="about-text">
+          {sobreMi.parrafos.map((p) => <p>{p}</p>)}
+
+          <dl class="about-facts">
+            {sobreMi.datos.map((d) => (
+              <div class="fact">
+                <dt>{d.label}</dt>
+                <dd>{d.valor}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-photo img,
+  .avatar-placeholder {
+    width: 220px;
+    height: 220px;
+    border-radius: var(--radius);
+    object-fit: cover;
+  }
+
+  .avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-elevated-2), var(--bg-elevated));
+    border: 1px dashed var(--border-strong);
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--text-muted);
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    max-width: 62ch;
+    margin: 0 0 16px;
+  }
+
+  .about-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+
+  .fact {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    background: var(--bg);
+  }
+
+  .fact dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 4px;
+  }
+
+  .fact dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--cyan);
+  }
+
+  @media (max-width: 680px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-photo img,
+    .avatar-placeholder {
+      width: 140px;
+      height: 140px;
+    }
+  }
+</style>

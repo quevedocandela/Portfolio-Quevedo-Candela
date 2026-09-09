@@ -1,0 +1,58 @@
+---
+import { perfil } from "../data/site";
+---
+
+<section class="section" id="contacto">
+  <div class="container">
+    <div class="arcane-card" data-reveal>
+      <div class="arcane-head">
+        <span class="arcane-numeral">V</span>
+        <div>
+          <h2 class="arcane-name">Los Copas</h2>
+          <p class="arcane-sub">Hablemos</p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <p class="terminal-line">
+          <span class="tok-muted">✦</span> ¿Trabajamos juntos?
+        </p>
+        <p class="contact-copy">
+          Estoy buscando mi primera oportunidad como desarrolladora. Si tenés una propuesta,
+          una devolución sobre este portfolio, o simplemente querés charlar de código, escribime.
+        </p>
+        <div class="contact-links">
+          <a class="btn btn-solid" href={`mailto:${perfil.email}`}>Escribime</a>
+          <a class="btn btn-ghost" href={perfil.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-ghost" href={perfil.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    max-width: 640px;
+  }
+
+  .terminal-line {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.3rem;
+    margin: 0 0 16px;
+  }
+
+  .tok-muted { color: var(--lime); }
+
+  .contact-copy {
+    color: var(--text-muted);
+    margin: 0 0 24px;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+</style>

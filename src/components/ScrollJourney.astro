@@ -1,0 +1,98 @@
+---
+const paradas = [
+    { id: "sobre-mi", numeral: "I" },
+    { id: "proyectos", numeral: "II" },
+    { id: "skills", numeral: "III" },
+    { id: "experiencias", numeral: "IV" },
+    { id: "contacto", numeral: "V" },
+];
+---
+
+<nav class="journey" aria-label="Progreso del recorrido">
+  {paradas.map((p) => (
+    <a href={`#${p.id}`} class="journey-dot" data-target={p.id} aria-label={`Ir a la sección ${p.numeral}`}>
+      <span>{p.numeral}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .journey {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 40;
+  }
+
+  .journey-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .journey-dot.active {
+    border-color: var(--lime);
+    color: var(--lime);
+    box-shadow: 0 0 14px rgba(227, 184, 115, 0.4);
+    transform: scale(1.15);
+  }
+
+  @media (max-width: 900px) {
+    .journey { display: none; }
+  }
+</style>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+  const dots = document.querySelectorAll<HTMLElement>('.journey-dot');
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('visible'));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+  }
+
+  if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.id;
+          const dot = document.querySelector<HTMLElement>(`.journey-dot[data-target="${id}"]`);
+          if (dot) {
+            dots.forEach((d) => d.classList.remove('active'));
+            dot.classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    document.querySelectorAll('section.section[id]').forEach((sec) => sectionObserver.observe(sec));
+  }
+</script>

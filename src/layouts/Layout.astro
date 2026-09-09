@@ -1,5 +1,5 @@
---- 
-import style from "../style/global.css";
+---
+import "../styles/global.css";
 import { perfil } from "../data/site";
 import Starfield from "../components/Starfield.astro";
 import CursorGlow from "../components/CursorGlow.astro";
@@ -10,10 +10,12 @@ interface Props {
 }
 
 const {
-  title ='${perfil.nombre} - ${perfil.rol',
+//  title = "${perfil.nombre} — ${perfil.rol}",
+  title= "Candela Quevedo - Desarrolladora de Software",
   description = perfil.tagline,
 } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -24,7 +26,6 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
-
   <body>
     <Starfield />
     <CursorGlow />

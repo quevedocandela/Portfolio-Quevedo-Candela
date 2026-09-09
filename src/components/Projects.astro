@@ -1,0 +1,161 @@
+---
+import { proyectos } from "../data/site";
+---
+
+<section class="section" id="proyectos">
+  <div class="container">
+    <div class="arcane-card" data-reveal>
+      <div class="arcane-head">
+        <span class="arcane-numeral">II</span>
+        <div>
+          <h2 class="arcane-name">El Mundo</h2>
+          <p class="arcane-sub">Proyectos</p>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        {proyectos.map((p) => (
+          <article class="card card-ornate tilt project-card">
+            <div class="project-top">
+              <h3>{p.nombre}</h3>
+              {p.destacado && <span class="badge">destacado</span>}
+            </div>
+            <p class="project-desc">{p.descripcion}</p>
+            <ul class="stack">
+              {p.stack.map((s) => <li>{s}</li>)}
+            </ul>
+            <div class="project-links">
+              {p.repoUrl ? (
+                <a class="btn btn-ghost" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
+                  Ver código
+                </a>
+              ) : (
+                <span class="btn btn-ghost disabled" aria-disabled="true">
+                  Subilo a GitHub →
+                </span>
+              )}
+              {p.demoUrl && (
+                <a class="btn btn-solid" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                  Ver demo
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    document.querySelectorAll<HTMLElement>('.project-card.tilt').forEach((card) => {
+      const strength = 8;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(700px) rotateY(${px * strength}deg) rotateX(${-py * strength}deg) translateY(-3px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+</script>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .project-top h3 {
+    font-size: 1.15rem;
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--lime);
+    border: 1px solid var(--lime);
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .project-desc {
+    color: var(--text-muted);
+    margin: 0 0 16px;
+  }
+
+  .stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+
+  .stack li {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--violet);
+    border: 1px solid var(--border-strong);
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn.disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .project-card {
+    background: var(--bg);
+  }
+
+  .project-card-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-style: dashed;
+    background: transparent;
+  }
+
+  .empty-title {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin: 0 0 8px;
+  }
+
+  .project-card-empty code {
+    font-family: var(--font-mono);
+    background: var(--bg-elevated);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+</style>

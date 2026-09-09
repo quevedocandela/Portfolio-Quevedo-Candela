@@ -1,0 +1,74 @@
+---
+import { skills } from "../data/site";
+const acentos = ["coral", "cyan", "lime", "violet"];
+---
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="arcane-card" data-reveal>
+      <div class="arcane-head">
+        <span class="arcane-numeral">III</span>
+        <div>
+          <h2 class="arcane-name">Las Estrellas</h2>
+          <p class="arcane-sub">Habilidades técnicas</p>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        {skills.map((grupo, i) => (
+          <div class="skill-group">
+            <p class={`skill-key tok-${acentos[i % acentos.length]}`}>"{grupo.categoria}"</p>
+            <ul class="skill-list">
+              {grupo.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+  }
+
+  .skill-key {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin: 0 0 14px;
+  }
+
+  .tok-coral { color: var(--coral); }
+  .tok-cyan { color: var(--cyan); }
+  .tok-lime { color: var(--lime); }
+  .tok-violet { color: var(--violet); }
+
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skill-list li {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .skill-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+</style>

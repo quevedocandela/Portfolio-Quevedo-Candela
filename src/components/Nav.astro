@@ -3,31 +3,31 @@ import { navItems, perfil } from "../data/site";
 ---
 
 <header class="nav">
-    <div class="nav-inner">
-        <a href="#top" class="nav-brand" aria-label="Volver arriba">
-            <span class="dot dot-coral"></span>
-            <span class="dot dot-lime"></span>
-            <span class="dot dot-cyan"></span>
-            <span class="brand-name">{perfil.nombre.split("")[0].toLowerCase}</span>
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand" aria-label="Volver arriba">
+      <span class="dot dot-coral"></span>
+      <span class="dot dot-lime"></span>
+      <span class="dot dot-cyan"></span>
+      <span class="brand-name">{perfil.nombre.split(" ")[0]}</span>
+    </a>
+    <nav class="tabs" aria-label="Secciones del portfolio">
+      {navItems.map((item) => (
+        <a class={`tab tab-${item.accent}`} href={item.href}>
+          {item.label}
         </a>
-        <nav class="tabs" aria-label="Selecciones del portfolio">
-            {navItems.map((item) =>(
-                <a class={'tam tab-${item.accent}'} href={item.href}>
-                    {item.label}
-                </a>
-            ))}
-        </nav>
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="tabs-mobile" aria-label="Abrir menú">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-        <nav class="tabs tabs-mobile" id="tabs-mobile" aria-label="Secciones del portfolio (móvil)">
-            {navItems.map((item) => (
-            <a class={`tab tab-${item.accent}`} href={item.href}>
-                {item.label}
-            </a>
-            ))}
-        </nav>
+      ))}
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="tabs-mobile" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="tabs tabs-mobile" id="tabs-mobile" aria-label="Secciones del portfolio (móvil)">
+    {navItems.map((item) => (
+      <a class={`tab tab-${item.accent}`} href={item.href}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
 </header>
 
 <script>
@@ -69,13 +69,14 @@ import { navItems, perfil } from "../data/site";
     gap: 24px;
   }
 
-   .nav-brand {
+  .nav-brand {
     display: flex;
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    font-family: var(--font-mono);
+    font-family: var(--font-label);
     font-weight: 600;
+    letter-spacing: 0.03em;
     color: var(--text);
     flex-shrink: 0;
   }
@@ -104,8 +105,9 @@ import { navItems, perfil } from "../data/site";
   .tabs::-webkit-scrollbar { display: none; }
 
   .tab {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9rem;
     text-decoration: none;
     color: var(--text-muted);
     padding: 8px 14px;
