@@ -5,45 +5,47 @@ import { proyectos } from "../data/site";
 <section class="section" id="proyectos">
   <div class="container">
     <div class="arcane-card" data-reveal>
-      <div class="arcane-head">
-        <span class="arcane-numeral">II</span>
-        <div>
-          <h2 class="arcane-name">El Mundo</h2>
-          <p class="arcane-sub">Proyectos</p>
+      <svg class="arcane-art art-mundo" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="60" />
+        <ellipse cx="100" cy="100" rx="24" ry="60" />
+        <ellipse cx="100" cy="100" rx="60" ry="24" transform="rotate(20 100 100)" />
+        <line x1="40" y1="100" x2="160" y2="100" />
+      </svg>
+      <div class="arcane-content">
+        <div class="arcane-head">
+          <span class="arcane-numeral">II</span>
+          <div>
+            <h2 class="arcane-name">El Mundo</h2>
+            <p class="arcane-sub">Proyectos</p>
+          </div>
         </div>
-      </div>
 
-      <div class="projects-grid">
-        {proyectos.map((p) => (
-          <article class="card card-ornate tilt project-card">
-            <div class="project-top">
-              <h3>{p.nombre}</h3>
-              {p.destacado && <span class="badge">destacado</span>}
-            </div>
-            <p class="project-desc">{p.descripcion}</p>
-            <ul class="stack">
-              {p.stack.map((s) => <li>{s}</li>)}
-            </ul>
-            <div class="project-links">
-              {p.repoUrl ? (
-                <a class="btn btn-ghost" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
-                  Ver código
-                </a>
-              ) : (
-                <span class="btn btn-ghost disabled" aria-disabled="true">
-                  Subilo a GitHub →
-                </span>
-              )}
-              {p.demoUrl && (
-                <a class="btn btn-solid" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
-                  Ver demo
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
-
-        
+        <div class="projects-grid">
+          {proyectos.map((p) => (
+            <article class="card card-ornate tilt project-card">
+              <p class="project-desc">{p.descripcion}</p>
+              <ul class="stack">
+                {p.stack.map((s) => <li>{s}</li>)}
+              </ul>
+              <div class="project-links">
+                {p.repoUrl ? (
+                  <a class="btn btn-ghost" href={p.repoUrl} target="_blank" rel="noopener noreferrer">
+                    Ver código
+                  </a>
+                ) : (
+                  <span class="btn btn-ghost disabled" aria-disabled="true">
+                    Subilo a GitHub →
+                  </span>
+                )}
+                {p.demoUrl && (
+                  <a class="btn btn-solid" href={p.demoUrl} target="_blank" rel="noopener noreferrer">
+                    Ver demo
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -71,23 +73,19 @@ import { proyectos } from "../data/site";
 </script>
 
 <style>
+  .art-mundo {
+    top:</script> -30px;
+    right: -30px;
+    width: 220px;
+    height: 220px;
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
   }
 
-  .project-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-
-  .project-top h3 {
-    font-size: 1.15rem;
-  }
 
   .badge {
     font-family: var(--font-mono);
@@ -131,10 +129,6 @@ import { proyectos } from "../data/site";
   .btn.disabled {
     opacity: 0.6;
     cursor: default;
-  }
-
-  .project-card {
-    background: var(--bg);
   }
 
   .project-card-empty {

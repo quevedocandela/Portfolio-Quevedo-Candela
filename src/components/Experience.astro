@@ -5,31 +5,45 @@ import { experiencia } from "../data/site";
 <section class="section" id="experiencia">
   <div class="container">
     <div class="arcane-card" data-reveal>
-      <div class="arcane-head">
-        <span class="arcane-numeral">IV</span>
-        <div>
-          <h2 class="arcane-name">La Luna</h2>
-          <p class="arcane-sub">Experiencia y educación</p>
+      <svg class="arcane-art art-luna" viewBox="0 0 200 200" aria-hidden="true">
+        <path d="M120 40a70 70 0 1 0 0 120 58 58 0 0 1 0-120Z" />
+        <path d="M50 50 L53 58 L61 60 L53 62 L50 70 L47 62 L39 60 L47 58 Z" />
+        <path d="M40 110 L42 116 L48 118 L42 120 L40 126 L38 120 L32 118 L38 116 Z" />
+      </svg>
+      <div class="arcane-content">
+        <div class="arcane-head">
+          <span class="arcane-numeral">IV</span>
+          <div>
+            <h2 class="arcane-name">La Luna</h2>
+            <p class="arcane-sub">Experiencia y educación</p>
+          </div>
         </div>
-      </div>
 
-      <ol class="timeline">
-        {experiencia.map((e) => (
-          <li class="timeline-item">
-            <span class={`tag ${e.tipo === "Educación" ? "tag-cyan" : "tag-coral"}`}>
-              {e.tipo === "Educación" ? "Educación" : "laboral"}
-            </span>
-            <h3>{e.titulo}</h3>
-            <p class="timeline-meta">{e.institucion} · {e.periodo}</p>
-            <p class="timeline-desc">{e.descripcion}</p>
-          </li>
-        ))}
-      </ol>
+        <ol class="timeline">
+          {experiencia.map((e) => (
+            <li class="timeline-item">
+              <span class={`tag ${e.tipo === "Educación" ? "tag-cyan" : "tag-coral"}`}>
+                {e.tipo === "Educación" ? "Educación" : "laboral"}
+              </span>
+              <h3>{e.titulo}</h3>
+              <p class="timeline-meta">{e.institucion} · {e.periodo}</p>
+              <p class="timeline-desc">{e.descripcion}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  .art-luna {
+    bottom: -30px;
+    left: -30px;
+    width: 220px;
+    height: 220px;
+  }
+
   .timeline {
     list-style: none;
     margin: 0;

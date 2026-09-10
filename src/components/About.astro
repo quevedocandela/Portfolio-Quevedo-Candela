@@ -1,40 +1,62 @@
 ---
 import { sobreMi, perfil } from "../data/site";
+const acentos = ["coral", "cyan", "lime"];
 ---
 
 <section class="section" id="sobre-mi">
   <div class="container">
     <div class="arcane-card" data-reveal>
-      <div class="arcane-head">
-        <span class="arcane-numeral">I</span>
-        <div>
-          <h2 class="arcane-name">El Sol</h2>
-          <p class="arcane-sub">Sobre mí</p>
+      <svg class="arcane-art art-sol" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="42" />
+        <line x1="100" y1="14" x2="100" y2="32" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(30 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(60 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(90 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(120 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(150 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(180 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(210 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(240 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(270 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(300 100 100)" />
+        <line x1="100" y1="14" x2="100" y2="32" transform="rotate(330 100 100)" />
+        <path d="M82 92 Q88 98 94 92" stroke-linecap="round" />
+        <path d="M106 92 Q112 98 118 92" stroke-linecap="round" />
+        <path d="M86 112 Q100 122 114 112" stroke-linecap="round" />
+      </svg>
+
+      <div class="arcane-content">
+        <div class="arcane-head">
+          <span class="arcane-numeral">I</span>
+          <div>
+            <h2 class="arcane-name">El Sol</h2>
+            <p class="arcane-sub">Sobre mí</p>
+          </div>
         </div>
-      </div>
 
-      <div class="about-grid">
-        <div class="about-photo" aria-hidden={perfil.fotoUrl ? "false" : "true"}>
-          {perfil.fotoUrl ? (
-            <img src={perfil.fotoUrl} alt={perfil.nombre} />
-          ) : (
-            <div class="avatar-placeholder">
-              <span>{perfil.nombre.split(" ").map((n) => n[0]).slice(0, 2).join("")}</span>
-            </div>
-          )}
-        </div>
-
-        <div class="about-text">
-          {sobreMi.parrafos.map((p) => <p>{p}</p>)}
-
-          <dl class="about-facts">
-            {sobreMi.datos.map((d) => (
-              <div class="fact">
-                <dt>{d.label}</dt>
-                <dd>{d.valor}</dd>
+        <div class="about-grid">
+          <div class="about-photo" aria-hidden={perfil.fotoUrl ? "false" : "true"}>
+            {perfil.fotoUrl ? (
+              <img src={perfil.fotoUrl} alt={perfil.nombre} />
+            ) : (
+              <div class="avatar-placeholder">
+                <span>{perfil.nombre.split(" ").map((n) => n[0]).slice(0, 2).join("")}</span>
               </div>
-            ))}
-          </dl>
+            )}
+          </div>
+
+          <div class="about-text">
+            {sobreMi.parrafos.map((p) => <p>{p}</p>)}
+
+            <dl class="about-facts">
+              {sobreMi.datos.map((d) => (
+                <div class="fact">
+                  <dt>{d.label}</dt>
+                  <dd>{d.valor}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +64,13 @@ import { sobreMi, perfil } from "../data/site";
 </section>
 
 <style>
+  .art-sol {
+    top: -30px;
+    right: -30px;
+    width: 220px;
+    height: 220px;
+  }
+
   .about-grid {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -57,6 +86,11 @@ import { sobreMi, perfil } from "../data/site";
     object-fit: cover;
   }
 
+
+  .tok-coral { color: var(--coral); }
+  .tok-cyan { color: var(--cyan); }
+  .tok-lime { color: var(--lime); }
+  
   .avatar-placeholder {
     display: flex;
     align-items: center;
@@ -67,6 +101,7 @@ import { sobreMi, perfil } from "../data/site";
     font-size: 3rem;
     color: var(--text-muted);
   }
+
 
   .about-text p {
     color: var(--text-muted);
@@ -82,12 +117,12 @@ import { sobreMi, perfil } from "../data/site";
     padding: 0;
   }
 
-  .fact {
+  /*.fact {
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 10px 16px;
     background: var(--bg);
-  }
+  } */
 
   .fact dt {
     font-family: var(--font-mono);

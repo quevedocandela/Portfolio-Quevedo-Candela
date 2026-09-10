@@ -1,16 +1,16 @@
 ---
 const paradas = [
-    { id: "sobre-mi", numeral: "I" },
-    { id: "proyectos", numeral: "II" },
-    { id: "skills", numeral: "III" },
-    { id: "experiencias", numeral: "IV" },
-    { id: "contacto", numeral: "V" },
+  { id: "sobre-mi", numeral: "I", nombre: "El Sol · Sobre mí" },
+  { id: "proyectos", numeral: "II", nombre: "El Mundo · Proyectos" },
+  { id: "skills", numeral: "III", nombre: "Las Estrellas · Skills" },
+  { id: "experiencia", numeral: "IV", nombre: "La Luna · Experiencia" },
+  { id: "contacto", numeral: "V", nombre: "Los Copas · Contacto" },
 ];
 ---
 
 <nav class="journey" aria-label="Progreso del recorrido">
   {paradas.map((p) => (
-    <a href={`#${p.id}`} class="journey-dot" data-target={p.id} aria-label={`Ir a la sección ${p.numeral}`}>
+    <a href={`#${p.id}`} class="journey-dot" data-target={p.id} data-label={p.nombre} aria-label={`Ir a ${p.nombre}`}>
       <span>{p.numeral}</span>
     </a>
   ))}
@@ -61,6 +61,21 @@ const paradas = [
   const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
   const dots = document.querySelectorAll<HTMLElement>('.journey-dot');
 
+  function spawnSparkles(card: HTMLElement) {
+    if (prefersReducedMotion) return;
+    const rect = card.getBoundingClientRect();
+    for (let i = 0; i < 6; i++) {
+      const sparkle = document.createElement('span');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = `${Math.random() * rect.width}px`;
+      sparkle.style.top = `${Math.random() * rect.height}px`;
+      sparkle.style.animationDelay = `${Math.random() * 0.3}s`;
+      card.appendChild(sparkle);
+      sparkle.addEventListener('animationend', () => sparkle.remove());
+    }
+  }
+
+  // Revelado de cada carta al entrar en pantalla (+ destello y chispas)
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealEls.forEach((el) => el.classList.add('visible'));
   } else {
@@ -69,6 +84,7 @@ const paradas = [
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            spawnSparkles(entry.target as HTMLElement);
             revealObserver.unobserve(entry.target);
           }
         });
@@ -78,6 +94,7 @@ const paradas = [
     revealEls.forEach((el) => revealObserver.observe(el));
   }
 
+  // Punto activo del recorrido, según la sección visible
   if ('IntersectionObserver' in window) {
     const sectionObserver = new IntersectionObserver(
       (entries) => {
@@ -94,5 +111,18 @@ const paradas = [
       { threshold: 0.4 }
     );
     document.querySelectorAll('section.section[id]').forEach((sec) => sectionObserver.observe(sec));
+  }
+
+  // Brillo tipo reflector que sigue al mouse dentro de cada carta
+  if (!prefersReducedMotion) {
+    document.querySelectorAll<HTMLElement>('.arcane-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--spot-x', `${x}%`);
+        card.style.setProperty('--spot-y', `${y}%`);
+      });
+    });
   }
 </script>

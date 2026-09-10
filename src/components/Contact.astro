@@ -5,26 +5,34 @@ import { perfil } from "../data/site";
 <section class="section" id="contacto">
   <div class="container">
     <div class="arcane-card" data-reveal>
-      <div class="arcane-head">
-        <span class="arcane-numeral">V</span>
-        <div>
-          <h2 class="arcane-name">Los Copas</h2>
-          <p class="arcane-sub">Hablemos</p>
+      <svg class="arcane-art art-copas" viewBox="0 0 200 200" aria-hidden="true">
+        <path d="M70 50 C70 80 80 95 100 95 C120 95 130 80 130 50" />
+        <line x1="100" y1="95" x2="100" y2="140" />
+        <line x1="75" y1="150" x2="125" y2="150" />
+        <path d="M85 150 C85 140 92 140 100 140 C108 140 115 140 115 150" />
+      </svg>
+      <div class="arcane-content">
+        <div class="arcane-head">
+          <span class="arcane-numeral">V</span>
+          <div>
+            <h2 class="arcane-name">Los Copas</h2>
+            <p class="arcane-sub">Hablemos</p>
+          </div>
         </div>
-      </div>
 
-      <div class="contact-card">
-        <p class="terminal-line">
-          <span class="tok-muted">✦</span> ¿Trabajamos juntos?
-        </p>
-        <p class="contact-copy">
-          Estoy buscando mi primera oportunidad como desarrolladora. Si tenés una propuesta,
-          una devolución sobre este portfolio, o simplemente querés charlar de código, escribime.
-        </p>
-        <div class="contact-links">
-          <a class="btn btn-solid" href={`mailto:${perfil.email}`}>Escribime</a>
-          <a class="btn btn-ghost" href={perfil.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a class="btn btn-ghost" href={perfil.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <div class="contact-card">
+          <p class="terminal-line">
+            <span class="tok-muted">✦</span> ¿Trabajamos juntos?
+          </p>
+          <p class="contact-copy">
+            Estoy buscando mi primera oportunidad como desarrolladora. Si tenés una propuesta,
+            una devolución sobre este portfolio, o simplemente querés charlar de código, escribime.
+          </p>
+          <div class="contact-links">
+            <a class="btn btn-solid" href={`mailto:${perfil.email}`}>Escribime</a>
+            <a class="btn btn-ghost" href={perfil.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="btn btn-ghost" href={perfil.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
         </div>
       </div>
     </div>
@@ -32,6 +40,13 @@ import { perfil } from "../data/site";
 </section>
 
 <style>
+  .art-copas {
+    top: -20px;
+    right: 10px;
+    width: 160px;
+    height: 160px;
+  }
+
   .contact-card {
     max-width: 640px;
   }
