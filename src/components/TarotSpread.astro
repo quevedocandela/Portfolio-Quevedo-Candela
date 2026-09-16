@@ -1,0 +1,615 @@
+---
+import { perfil, sobreMi, skills, proyectos, experiencia } from "../data/site";
+
+const cartas = [
+  { id: "sol", numeral: "I", nombre: "El Sol", accent: "var(--lime)" },
+  { id: "mundo", numeral: "II", nombre: "El Mundo", accent: "var(--cyan)" },
+  { id: "estrellas", numeral: "III", nombre: "Las Estrellas", accent: "var(--coral)" },
+  { id: "luna", numeral: "IV", nombre: "La Luna", accent: "var(--violet)" },
+  { id: "copas", numeral: "V", nombre: "Los Copas", accent: "var(--lime)" },
+];
+---
+
+<section class="spread-section" id="spread">
+  <div class="tarot-spread">
+    {cartas.map((c) => (
+      <button class="tcard" data-id={c.id} style={`--card-accent:${c.accent}`} aria-label={`Abrir ${c.nombre}`}>
+        <span class="tcard-vines" aria-hidden="true"></span>
+        <span class="tcard-stars" aria-hidden="true"></span>
+        <span class="tcard-glow" aria-hidden="true"></span>
+        <span class="corner corner-tl"></span>
+        <span class="corner corner-tr"></span>
+        <span class="corner corner-bl"></span>
+        <span class="corner corner-br"></span>
+        <svg class="tcard-icon" viewBox="0 0 200 200" aria-hidden="true">
+          {c.id === "sol" && (
+            <>
+              <circle cx="100" cy="100" r="46" />
+              <line x1="100" y1="14" x2="100" y2="34" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(45 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(90 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(135 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(180 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(225 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(270 100 100)" />
+              <line x1="100" y1="14" x2="100" y2="34" transform="rotate(315 100 100)" />
+            </>
+          )}
+          {c.id === "mundo" && (
+            <>
+              <circle cx="100" cy="100" r="58" />
+              <ellipse cx="100" cy="100" rx="24" ry="58" />
+              <ellipse cx="100" cy="100" rx="58" ry="24" transform="rotate(20 100 100)" />
+              <line x1="42" y1="100" x2="158" y2="100" />
+            </>
+          )}
+          {c.id === "estrellas" && (
+            <path d="M100 50 L110 85 L146 90 L116 112 L126 148 L100 126 L74 148 L84 112 L54 90 L90 85 Z" />
+          )}
+          {c.id === "luna" && (
+            <path d="M124 46a58 58 0 1 0 0 108 47 47 0 0 1 0-108Z" />
+          )}
+          {c.id === "copas" && (
+            <>
+              <path d="M68 48 C68 82 80 100 100 100 C120 100 132 82 132 48" />
+              <line x1="100" y1="100" x2="100" y2="146" />
+              <line x1="72" y1="156" x2="128" y2="156" />
+            </>
+          )}
+        </svg>
+        <span class="tcard-numeral">{c.numeral}</span>
+        <span class="tcard-name">{c.nombre}</span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Panel expandido -->
+  <div class="tpanel" id="tpanel">
+    <div class="tpanel-card">
+      <span class="corner corner-tl"></span>
+      <span class="corner corner-tr"></span>
+      <span class="corner corner-bl"></span>
+      <span class="corner corner-br"></span>
+      <button class="tpanel-close" id="tpanel-close" aria-label="Cerrar">✕</button>
+
+      <div class="tpanel-scroll">
+      <div class="tpanel-body" data-panel="sol">
+      <p class="tpanel-eyebrow">I · El Sol</p>
+      <h2 class="tpanel-title">Sobre mí</h2>
+      {sobreMi.parrafos.map((p) => <p class="tpanel-p">{p}</p>)}
+      <ul class="tpanel-facts">
+        {sobreMi.datos.map((d) => <li><strong>{d.label}:</strong> {d.valor}</li>)}
+      </ul>
+    </div>
+
+    <div class="tpanel-body" data-panel="mundo" hidden>
+      <p class="tpanel-eyebrow">II · El Mundo</p>
+      <h2 class="tpanel-title">Proyectos</h2>
+      {proyectos.map((p) => (
+        <div class="tpanel-project">
+          <p class="tpanel-project-name">{p.nombre}</p>
+          <p class="tpanel-p">{p.descripcion}</p>
+          <ul class="tpanel-tags">{p.stack.map((s) => <li>{s}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="tpanel-body" data-panel="estrellas" hidden>
+      <p class="tpanel-eyebrow">III · Las Estrellas</p>
+      <h2 class="tpanel-title">Skills</h2>
+      {skills.map((g) => (
+        <div class="tpanel-skillgroup">
+          <p class="tpanel-skillcat">{g.categoria}</p>
+          <ul class="tpanel-tags">{g.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="tpanel-body" data-panel="luna" hidden>
+      <p class="tpanel-eyebrow">IV · La Luna</p>
+      <h2 class="tpanel-title">Experiencia</h2>
+      {experiencia.map((e) => (
+        <div class="tpanel-project">
+          <p class="tpanel-project-name">{e.titulo}</p>
+          <p class="tpanel-p">{e.institucion} · {e.periodo}</p>
+          <p class="tpanel-p">{e.descripcion}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="tpanel-body" data-panel="copas" hidden>
+      <p class="tpanel-eyebrow">V · Los Copas</p>
+      <h2 class="tpanel-title">Contacto</h2>
+      <p class="tpanel-p">¿Trabajamos juntos? Escribime.</p>
+      <p class="contact-copy">Estoy buscando mi primera oportunidad como desarrolladora. Si tenés una propuesta,
+        una devolución sobre este portfolio, o simplemente querés charlar de código, escribime.</p>
+      <div class="tpanel-links">
+        <a href={`mailto:${perfil.email}`}>Email</a>
+        <a href={perfil.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href={perfil.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>('.tcard');
+  const panel = document.getElementById('tpanel')!;
+  const closeBtn = document.getElementById('tpanel-close')!;
+  const bodies = document.querySelectorAll<HTMLElement>('.tpanel-body');
+
+  function openPanel(id: string) {
+    bodies.forEach((b) => (b.hidden = b.dataset.panel !== id));
+    panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePanel() {
+    panel.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => openPanel(card.dataset.id!));
+  });
+  closeBtn.addEventListener('click', closePanel);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePanel();
+  });
+</script>
+
+<style>
+  .spread-section {
+    position: relative;
+    padding: 24px 24px 60px;
+  }
+
+  .tarot-spread {
+    display: flex;
+    gap: 14px;
+    height: 78vh;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .tcard {
+    position: relative;
+    flex: 1;
+    border-radius: 18px;
+    border: 1px solid var(--border-strong);
+    background: linear-gradient(165deg, var(--bg-elevated-2), var(--bg));
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .tcard:hover {
+    transform: translateY(-8px);
+    border-color: var(--card-accent);
+  }
+
+  .tcard-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 20%, var(--card-accent) 0%, transparent 65%);
+    opacity: 0.16;
+    pointer-events: none;
+  }
+
+  .tcard-stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 85% 65%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 25% 85%, rgba(255,255,255,0.3), transparent);
+    pointer-events: none;
+  }
+
+  /* Enredaderas sutiles a los costados del dorso */
+  .tcard-vines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    background-repeat: repeat-y;
+    background-size: 40px 140px;
+    background-position: 6px top, calc(100% - 6px) top;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 140'%3E%3Cpath d='M20 0 C6 20 34 30 20 50 C6 70 34 80 20 100 C6 120 34 130 20 140' fill='none' stroke='%23e3b873' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='25' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='75' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='115' r='2.4' fill='%23e3b873'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 140'%3E%3Cpath d='M20 0 C6 20 34 30 20 50 C6 70 34 80 20 100 C6 120 34 130 20 140' fill='none' stroke='%23e3b873' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='25' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='75' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='115' r='2.4' fill='%23e3b873'/%3E%3C/svg%3E");
+  }
+
+  /* Marco interno del dorso, calcado a la forma arqueada */
+  .tcard::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(227, 184, 115, 0.4);
+    border-radius: 70px 70px 10px 10px;
+    pointer-events: none;
+  }
+
+  .corner {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    pointer-events: none;
+  }
+
+  .corner-tl, .corner-tr {
+    top: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M25 8a14 14 0 1 0 0 24 11 11 0 0 1 0-24Z' fill='none' stroke='%23e3b873' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .corner-tl { left: 16px; }
+  .corner-tr { right: 16px; transform: scaleX(-1); }
+
+  .corner-bl, .corner-br {
+    bottom: 16px;
+    width: 16px;
+    height: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M15 3 L18 12 L27 15 L18 18 L15 27 L12 18 L3 15 L12 12 Z' fill='%23e3b873'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .corner-bl { left: 16px; }
+  .corner-br { right: 16px; }
+
+  .tcard-icon {
+    width: 30%;
+    max-width: 90px;
+    fill: none;
+    stroke: var(--card-accent);
+    stroke-width: 2;
+    opacity: 0.85;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tcard-numeral {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-label);
+    color: var(--card-accent);
+    border: 1px solid var(--card-accent);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tcard-name {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    text-align: center;
+  }
+
+ /* ── Panel expandido: fondo difuminado + carta ── */
+
+.tpanel {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(18, 12, 31, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px 20px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.35s ease;
+}
+
+.tpanel.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* LA CARTA DESPLEGADA */
+.tpanel-card {
+  position: relative;
+
+  /* Mantiene proporción vertical de carta */
+  width: min(360px, 80vw);
+  aspect-rario: 2 / 3;
+
+  /* Nunca se sale de la pantalla */
+  max-height: 88vh;
+
+  background: linear-gradient(
+    165deg,
+    var(--bg-elevated-2),
+    var(--bg-elevated)
+  );
+
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+
+  transform: scale(0.92) translateY(16px);
+
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+}
+
+.tpanel.open .tpanel-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Marco interno */
+.tpanel-card::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+
+  border: 1px solid rgba(227, 184, 115, 0.35);
+
+  border-radius: 12px;
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Decoraciones */
+.tpanel-card .corner {
+  z-index: 2;
+}
+
+.tpanel-card .corner-tl,
+.tpanel-card .corner-tr {
+  top: 40px;
+}
+
+.tpanel-card .corner-tl {
+  left: 40px;
+}
+
+.tpanel-card .corner-tr {
+  right: 40px;
+}
+
+
+/* ── CONTENIDO DE LA CARTA ── */
+
+.tpanel-scroll {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  /* IMPORTANTE:
+     no hay scrollbar */
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  padding: 78px 42px 38px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.tpanel-body {
+  width: 100%;
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+  /* El contenido puede reducirse para entrar */
+  min-height: 0;
+}
+
+/* Botón cerrar */
+.tpanel-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  z-index: 3;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+
+  background: var(--bg-elevated);
+
+  color: var(--text);
+
+  font-size: 1.05rem;
+
+  cursor: pointer;
+}
+
+
+/* ── TEXTOS ── */
+
+.tpanel-eyebrow {
+  font-family: var(--font-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  font-size: 0.7rem;
+
+  color: var(--lime);
+
+  margin: 0 0 8px;
+}
+
+.tpanel-title {
+  font-family: var(--font-display);
+
+  font-size: clamp(1.55rem, 4vw, 2.1rem);
+
+  line-height: 1.05;
+
+  margin: 4px 0 18px;
+}
+
+.tpanel-p {
+  color: var(--text-muted);
+
+  max-width: none;
+
+  margin: 0 0 10px;
+
+  line-height: 1.42;
+
+  font-size: 0.78rem;
+}
+
+.tpanel-facts {
+  list-style: none;
+
+  padding: 0;
+  margin: 14px 0 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  font-size: 0.76rem;
+
+  line-height: 1.35;
+}
+
+.tpanel-facts strong {
+  color: var(--text);
+}
+
+
+/* ── PROYECTOS / SKILLS ── */
+
+.tpanel-project,
+.tpanel-skillgroup {
+  margin-bottom: 14px;
+}
+
+.tpanel-project-name,
+.tpanel-skillcat {
+  font-weight: 600;
+
+  font-size: 0.8rem;
+
+  margin: 0 0 5px;
+}
+
+.tpanel-tags {
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  padding: 0;
+  margin: 7px 0 0;
+}
+
+.tpanel-tags li {
+  font-family: var(--font-mono);
+
+  font-size: 0.62rem;
+
+  color: var(--violet);
+
+  border: 1px solid var(--border-strong);
+
+  padding: 2px 7px;
+
+  border-radius: 6px;
+}
+
+.tpanel-links {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.tpanel-links a {
+  color: var(--cyan);
+
+  font-family: var(--font-mono);
+
+  font-size: 0.75rem;
+}
+
+/* ── REDUCIR UN POQUITO EN PANTALLAS CHICAS ── */
+
+@media (max-width: 600px) {
+
+  .tpanel {
+    padding: 16px;
+  }
+
+  .tpanel-card {
+    width: min(330px, 82vw);
+    max-height: 90vh;
+  }
+
+  .tpanel-scroll {
+    padding: 68px 34px 30px;
+  }
+
+  .tpanel-title {
+    font-size: 1.55rem;
+  }
+
+  .tpanel-p {
+    font-size: 0.72rem;
+    line-height: 1.38;
+  }
+
+  .tpanel-facts {
+    font-size: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpanel,
+  .tpanel-card {
+    transition: none;
+  }
+}
+
+  @media (max-width: 900px) {
+    .tarot-spread {
+      flex-direction: column;
+      height: auto;
+    }
+    .tcard { height: 140px; flex-direction: row; }
+    .tcard-vines { display: none; }
+  }
+</style>

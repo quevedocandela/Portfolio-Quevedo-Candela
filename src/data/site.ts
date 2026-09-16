@@ -4,7 +4,7 @@ export const perfil = {
     tagline: "Transformo necesidades complejas en software eficiente, limpio y escalable, conectando una arquitectura robusta en el backend con una experiencia fluida e intuitiva en el frontend.",
     ubicacion: "Argentina",
     email: "quevedocandela05@gmail.com",
-    cvUrl: "/cv.pdf",
+    cvUrl: "public/CVquevedo.pdf",
     github: "github.com/quevedocandela",
     linkedin: "http://linkedin.com/in/candela-quevedo05",
     fotoUrl: "",
