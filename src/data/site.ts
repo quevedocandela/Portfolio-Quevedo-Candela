@@ -1,7 +1,7 @@
 export const perfil = {
     nombre: "Quevedo Candela",
     rol: "Desarrolladora de Software",
-    tagline: "Transformo necesidades complejas en software eficiente, limpio y escalable, conectando una arquitectura robusta en el backend con una experiencia fluida e intuitiva en el frontend.",
+    tagline: "", 
     ubicacion: "Argentina",
     email: "quevedocandela05@gmail.com",
     cvUrl: "public/CVquevedo.pdf",
@@ -12,9 +12,9 @@ export const perfil = {
 
 export const sobreMi = {
     parrafos: [
-    "Soy estudiante avanzada de la Tecnicatura Superior en Desarrollo de Software (Instituto N°125, Rojas) y de la Diplomatura en Programación y Recolección de Datos de la UBA.",
-    "Combino conocimientos sólidos en desarrollo de software con habilidades de análisis de datos. Me caracterizo por la curiosidad constante y la perseverancia frente a problemas técnicos complejos.",
-    "Estoy buscando mi primera experiencia profesional en tecnología para aplicar y seguir expandiendo lo que aprendí.",
+    "Soy de Rojas, Buenos Aires, y estoy terminando la Tecnicatura Superior en Desarrollo de Software, este año tambien concluí la Diplomatura en 'Programacion y Recolección de Datos' de la UBA. Pero antes de los datos y el código, siempre fui de tener la necesidad de entender el patrón detrás de las cosas — por eso este portfolio tiene forma de tirada de tarot.",
+    "Me interesa particularmente esa zona donde el desarrollo web y el análisis de datos se cruzan: construir algo que además de funcionar, cuente algo.",
+    "Estoy buscando mi primera experiencia profesional en tecnología. Sé que recién empiezo, pero también sé que la curiosidad y la cabeza dura para no rendirme ante un bug son mías desde mucho antes de esta carrera.",
     ],
 
     datos: [
@@ -48,8 +48,8 @@ export const experiencia = [
         tipo: "Educación",
         titulo: "Tecnicatura Superior en Desarrollo de Software",
         institucion: "Instituto N°125 - Rojas, Buenos Aires",
-        periodo: "2024 - 2026 (actualemnte cursando el último año",
-        descripcion: "Programación orientada a objetos, bases de datos, desarrollo web y metodologías ágiles.",
+        periodo: "2024 - 2026 (en curso, 3er año)",
+        descripcion: "De aca me llevo sobre todo, la costumbre de romper un problema grande en partes chicas antes de empezar a codear.",
     },
 
     {
@@ -57,7 +57,7 @@ export const experiencia = [
         titulo: "Diplomatura en Programación y Recolección de Datos",
         institucion: "UBA - Plan Puentes",
         periodo: "2025 - 2026 (fianlizada)",
-        descripcion: "Recolección, procesamiento y análisis de datos con python.",
+        descripcion: "Fue la primera vez que vi con claridad cómo el código puede convertir números en una historia con sentido",
     },
 
     {
@@ -65,6 +65,7 @@ export const experiencia = [
         titulo: "Bachiller en Comunicación",
         institucion: "ENSNA N°30 - Rojas, Buenos Aires",
         periodo: "Egresada en 2022",
+        descripcion: "No tiene que ver directamente con programación, pero fue ahí donde aprendí a comunicar ideas complejas de manera simple."
     },
 ];
 

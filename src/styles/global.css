@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cinzel:wght@500;600&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cinzel:wght@500;600&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cinzel:wght@500;600&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 :root {
   --bg: #120c1f;
   --bg-elevated: #1c1430;
@@ -11,12 +12,13 @@
   --violet: #8a6fd6;
   --border: rgba(243, 236, 255, 0.12);
   --border-strong: rgba(243, 236, 255, 0.24);
-  --font-display: 'Fraunces', serif;
+  --font-display: 'Cinzel Decorative', serif;
+  --font-elegant: 'Fraunces', serif;
   --font-label: 'Cinzel', serif;
   --font-body: 'Sora', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --radius: 14px;
-  --nav-height: 64px;
+  --radius: 20px;
+  --nav-height: 600px;
 }
 * { box-sizing: border-box; }
 body { margin:0; background: var(--bg); color: var(--text); font-family: var(--font-body); }
@@ -34,7 +36,7 @@ body::after {
 .btn { display:inline-flex; align-items:center; gap:8px; font-family: var(--font-mono); font-size:0.85rem; font-weight:500; padding:12px 20px; border-radius:8px; border:1px solid var(--border-strong); text-decoration:none; }
 .btn-solid { background: var(--lime); color:#1a1025; border-color: var(--lime); }
 .btn-ghost { color: var(--text); background: transparent; }
-h1,h2,h3 { font-family: var(--font-display); margin:0; }
+h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.02em; }
 
 /* ── Mesa de tarot: cada sección es una carta ── */
 .section {
@@ -67,11 +69,11 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; }
 .arcane-card::after {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: 1;
   z-index: 1;
   background: radial-gradient(280px circle at var(--spot-x) var(--spot-y), rgba(227, 184, 115, 0.1), transparent 70%);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.1s ease;
   pointer-events: none;
 }
 
@@ -92,7 +94,7 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; }
   pointer-events: none;
   fill: none;
   stroke: var(--lime);
-  stroke-width: 1.2;
+  stroke-width: 10;
 }
 
 /* El contenido real de la carta va siempre arriba de la ilustración */
