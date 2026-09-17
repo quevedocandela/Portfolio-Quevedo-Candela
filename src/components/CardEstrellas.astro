@@ -1,0 +1,41 @@
+---
+import { skills } from "../data/site";
+---
+
+<button class="tcard" data-id="estrellas" style="--card-accent:var(--coral)" aria-label="Abrir Las Estrellas">
+  <span class="tcard-vines" aria-hidden="true"></span>
+  <span class="tcard-stars" aria-hidden="true"></span>
+  <span class="tcard-glow" aria-hidden="true"></span>
+  <span class="corner corner-tl"></span>
+  <span class="corner corner-tr"></span>
+  <span class="corner corner-bl"></span>
+  <span class="corner corner-br"></span>
+  <svg class="tcard-icon" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M100 50 L110 85 L146 90 L116 112 L126 148 L100 126 L74 148 L84 112 L54 90 L90 85 Z" />
+  </svg>
+  <span class="tcard-numeral">III</span>
+  <span class="tcard-name">Las Estrellas</span>
+</button>
+
+<div class="tpanel" data-panel-for="estrellas">
+  <div class="tpanel-card">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    <button class="tpanel-close" aria-label="Cerrar">✕</button>
+
+    <div class="tpanel-scroll">
+      <div class="tpanel-fit">
+        <p class="tpanel-eyebrow">III · Las Estrellas</p>
+        <h2 class="tpanel-title">Skills</h2>
+        {skills.map((g) => (
+          <div class="tpanel-skillgroup">
+            <p class="tpanel-skillcat">{g.categoria}</p>
+            <ul class="tpanel-tags">{g.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

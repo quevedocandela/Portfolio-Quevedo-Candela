@@ -12,9 +12,9 @@ export const perfil = {
 
 export const sobreMi = {
     parrafos: [
-    "Soy de Rojas, Buenos Aires, y estoy terminando la Tecnicatura Superior en Desarrollo de Software, este año tambien concluí la Diplomatura en 'Programacion y Recolección de Datos' de la UBA. Pero antes de los datos y el código, siempre fui de tener la necesidad de entender el patrón detrás de las cosas — por eso este portfolio tiene forma de tirada de tarot.",
-    "Me interesa particularmente esa zona donde el desarrollo web y el análisis de datos se cruzan: construir algo que además de funcionar, cuente algo.",
-    "Estoy buscando mi primera experiencia profesional en tecnología. Sé que recién empiezo, pero también sé que la curiosidad y la cabeza dura para no rendirme ante un bug son mías desde mucho antes de esta carrera.",
+    "Antes de los datos y el código, siempre fui de tener la necesidad de entender el patrón detrás de las cosas — por eso este portfolio tiene forma de tirada de tarot.",
+    "Me interesa particularmente esa zona donde el desarrollo web y el análisis de datos se cruzan: construir algo que además de funcionar, cuente una historia.",
+    "Estoy buscando mi primera experiencia profesional en tecnología. Sé que recién estoy empezando, pero también sé que la curiosidad y la cabeza dura para no rendirme ante un bug son mías desde mucho antes de elegir esta carrera.",
     ],
 
     datos: [
@@ -38,9 +38,15 @@ export const proyectos = [
         stack: ["HTML", "CSS", "JavaScript"],
         repoUrl: "", //cuando termine de pasarlo a git va el link aca 
         demoUrl: "https://crimenpasionalyfemicidio.netlify.app/",
-        destacado: true,
     },
     //si tengo otro proyecto va aca
+    {
+        nombre: "Diseño Web",
+        descripcion: "Este trabajo se hizo a modo de presentacion para una de las materias que curse durante el segundo año de mi carrera.",
+        stack: ["HTML", "CSS", "JavaScript"],
+        repoUrl: "", //cuando termine de pasarlo a git va el link aca 
+        demoUrl: "http://diseniowebquevedo.netlify.app",
+    },
 ];
 
 export const experiencia = [

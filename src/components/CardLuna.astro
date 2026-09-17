@@ -1,0 +1,42 @@
+---
+import { experiencia } from "../data/site";
+---
+
+<button class="tcard" data-id="luna" style="--card-accent:var(--violet)" aria-label="Abrir La Luna">
+  <span class="tcard-vines" aria-hidden="true"></span>
+  <span class="tcard-stars" aria-hidden="true"></span>
+  <span class="tcard-glow" aria-hidden="true"></span>
+  <span class="corner corner-tl"></span>
+  <span class="corner corner-tr"></span>
+  <span class="corner corner-bl"></span>
+  <span class="corner corner-br"></span>
+  <svg class="tcard-icon" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M124 46a58 58 0 1 0 0 108 47 47 0 0 1 0-108Z" />
+  </svg>
+  <span class="tcard-numeral">IV</span>
+  <span class="tcard-name">La Luna</span>
+</button>
+
+<div class="tpanel" data-panel-for="luna">
+  <div class="tpanel-card">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    <button class="tpanel-close" aria-label="Cerrar">✕</button>
+
+    <div class="tpanel-scroll">
+      <div class="tpanel-fit">
+        <p class="tpanel-eyebrow">IV · La Luna</p>
+        <h2 class="tpanel-title">Experiencia</h2>
+        {experiencia.map((e) => (
+          <div class="tpanel-project">
+            <p class="tpanel-project-name">{e.titulo}</p>
+            <p class="tpanel-p">{e.institucion} · {e.periodo}</p>
+            <p class="tpanel-p">{e.descripcion}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
