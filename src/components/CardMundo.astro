@@ -37,7 +37,14 @@ import { proyectos } from "../data/site";
             <p class="tpanel-project-name">{p.nombre}</p>
             <p class="tpanel-p">{p.descripcion}</p>
             <ul class="tpanel-tags">{p.stack.map((s) => <li>{s}</li>)}</ul>
-            
+            <div class="tpanel-links">
+              {p.repoUrl ? (
+                <a href={p.repoUrl} target="_blank" rel="noopener noreferrer">Código</a>
+              ) : (
+                <span class="tpanel-link-pending">Subilo a GitHub →</span>
+              )}
+              {p.demoUrl && <a href={p.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+            </div>
           </div>
         ))}
       </div>
