@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Cinzel:wght@500;600&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* CONFIGURACION GENERAL DEL PROYECTO */
+:root {
+  --bg: #120c1f;
+  --bg-elevated: #1c1430;
+  --bg-elevated-2: #241a3d;
+  --text: #f3ecff;
+  --text-muted: #9d8fc2;
+  --coral: #f0a8c4;
+  --lime: #e3b873;
+  --cyan: #b9d4e8;
+  --violet: #8a6fd6;
+  --border: rgba(243, 236, 255, 0.12);
+  --border-strong: rgba(243, 236, 255, 0.24);
+  --font-display: 'Cinzel Decorative', serif;
+  --font-elegant: 'Fraunces', serif;
+  --font-label: 'Cinzel', serif;
+  --font-body: 'Sora', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 14px;
+  --nav-height: 0px;
+}
+/* AJUSTES GENERALES DE LA PÁGINA */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin:0; background: var(--bg); color: var(--text); font-family: var(--font-body); }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-image: radial-gradient(circle at 1px 1px, rgba(243, 236, 255, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+/*ETIQUETAS*/
+.pill { display:inline-flex; align-items:center; gap:8px; font-family: var(--font-mono); font-size:0.78rem; padding:6px 12px; border-radius:999px; border:1px solid var(--border-strong); background: var(--bg-elevated); color: var(--text-muted); }
+/*BOTONES*/
+.btn { display:inline-flex; align-items:center; gap:8px; font-family: var(--font-mono); font-size:0.85rem; font-weight:500; padding:12px 20px; border-radius:8px; border:1px solid var(--border-strong); text-decoration:none; }
+.btn-solid { background: var(--lime); color:#1a1025; border-color: var(--lime); }
+.btn-ghost { color: var(--text); background: transparent; }
+/*TITULOS*/
+h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
+
+/*INTRODUCCION*/
+.manifiesto {
+  max-width: 620px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+  font-family: var(--font-elegant, 'Fraunces', serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+/*SECCIN QUE TIENE LA TIRADA DE CARTAS*/
+.spread-section { position: relative; padding: 24px 24px 60px; }
+/*CONTENEDOR PRINCIPAL DE TODAS LAS CARTAS*/
+.tarot-spread {
+  display: flex;
+  gap: 14px;
+  height: 78vh;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+/*CARTA INDIVIDUAL*/
+.tcard {
+  position: relative;
+  flex: 1;
+  border-radius: 18px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(165deg, var(--bg-elevated-2), var(--bg));
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+/*EFECTO AL PASAR EL MOUSE SOBRE UNA CARTA*/
+.tcard:hover {
+  transform: translateY(-8px);
+  border-color: var(--card-accent);
+}
+/*BRILLO DE CADA CARTA*/
+.tcard-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, var(--card-accent) 0%, transparent 65%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+/*ESTRELLAS DECORATIVAS DENTRO DE LAS CARTAS*/
+.tcard-stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 85% 65%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 25% 85%, rgba(255,255,255,0.3), transparent);
+  pointer-events: none;
+}
+/*RAMAS DECORATIVAS DE LAS CARTAS*/
+.tcard-vines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  background-repeat: repeat-y;
+  background-size: 40px 140px;
+  background-position: 6px top, calc(100% - 6px) top;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 140'%3E%3Cpath d='M20 0 C6 20 34 30 20 50 C6 70 34 80 20 100 C6 120 34 130 20 140' fill='none' stroke='%23e3b873' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='25' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='75' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='115' r='2.4' fill='%23e3b873'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 140'%3E%3Cpath d='M20 0 C6 20 34 30 20 50 C6 70 34 80 20 100 C6 120 34 130 20 140' fill='none' stroke='%23e3b873' stroke-width='1.4'/%3E%3Ccircle cx='20' cy='25' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='75' r='2.4' fill='%23e3b873'/%3E%3Ccircle cx='20' cy='115' r='2.4' fill='%23e3b873'/%3E%3C/svg%3E");
+}
+/*MARCO DECORATIVO EN LAS CARTAS*/
+.tcard::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(227, 184, 115, 0.4);
+  border-radius: 10px 10px 10px 10px;
+  pointer-events: none;
+}
+/*DECORACION EN LAS ESQUINAS*/
+.corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+}
+
+.corner-tl, .corner-tr {
+  top: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M25 8a14 14 0 1 0 0 24 11 11 0 0 1 0-24Z' fill='none' stroke='%23e3b873' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.corner-tl { left: 16px; }
+.corner-tr { right: 16px; transform: scaleX(-1); }
+
+.corner-bl, .corner-br {
+  bottom: 16px;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M15 3 L18 12 L27 15 L18 18 L15 27 L12 18 L3 15 L12 12 Z' fill='%23e3b873'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.corner-bl { left: 16px; }
+.corner-br { right: 16px; }
+/*ICONO PRINCIPAL DE LA CARTA*/
+.tcard-icon {
+  width: 30%;
+  max-width: 90px;
+  fill: none;
+  stroke: var(--card-accent);
+  stroke-width: 2;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+}
+/*NUMERO DE LA CARTA*/
+.tcard-numeral {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-label);
+  color: var(--card-accent);
+  border: 1px solid var(--card-accent);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*NOMBRE Y TITULO DE CADA CARTA*/
+.tcard-name {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  text-align: center;
+}
+/*FONDO QUE APARECE AL ABRIR UNA CARTA*/
+.tpanel {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(18, 12, 31, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+/*ESTADO ABIERTO DEL PANEL*/
+.tpanel.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+/*CARTA GRANDE QUE APARECE DENTRO DEL PANEL*/
+.tpanel-card {
+  position: relative;
+  width: 360px;
+  height: 550px;
+  background: linear-gradient(165deg, var(--bg-elevated-2), var(--bg-elevated));
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+  transform: scale(0.92) translateY(16px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+/*ANIMACION DE ENTRADA DE LA CARTA APLIADA*/
+.tpanel.open .tpanel-card {
+  transform: scale(1) translateY(0);
+}
+/*MARCO DECORATIVO DE LA CARTA AMPLIADA*/
+.tpanel-card::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(227, 184, 115, 0.35);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tpanel-card .corner { z-index: 2; }
+.tpanel-card .corner-tl, .tpanel-card .corner-tr { top: 40px; }
+.tpanel-card .corner-tl { left: 40px; }
+.tpanel-card .corner-tr { right: 40px; }
+/*ACCECIBILIDAD:reduce animaciones si el usuario lo solicita*/
+@media (prefers-reduced-motion: reduce) {
+  .tpanel, .tpanel-card { transition: none; }
+}
+/*CONTENIDO SCROLLEABLE DEL PANEL*/
+.tpanel-scroll {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 78px 42px 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*AJUSTE/ESCALADO DEL CONTENIDO DEL PANEL*/
+.tpanel-fit {
+  width: var(--fit-w, 100%);
+  transform-origin: center center;
+  transition: transform 0.25s ease;
+}
+/*BOTON PARA CERRAR EL PANEL*/
+.tpanel-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+/*TEXTO PEQUEÑO SUPERIOR DEL PANEL*/
+.tpanel-eyebrow {
+  font-family: var(--font-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--lime);
+}
+/*TITULO DE LA CARTA ABIERTA*/
+.tpanel-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 4vw, 2.1rem);
+  line-height: 1.05;
+  margin: 4px 0 18px;
+}
+/*PARRAFOS Y DESCRIPCION DE LA CARTA*/
+.tpanel-p {
+  color: var(--text-muted);
+  margin: 0 0 10px;
+  line-height: 1.42;
+  font-size: 0.78rem;
+}
+/*LISTA DE DATOS O INFORMACION DE LA CARTA*/
+.tpanel-facts {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+/*TEXTO DESTACADO DENTRO DE LOS DATOS*/
+.tpanel-facts strong { color: var(--text); }
+/*BLOQUE DE PROYECTOS Y GRUPO DE HABILIDADES*/
+.tpanel-project, .tpanel-skillgroup { margin-bottom: 14px; }
+/*NOMBRE DEL PORYECTO / CATEGORIA DE HABILIDAD*/
+.tpanel-project-name, .tpanel-skillcat {
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin: 0 0 5px;
+}
+/*CONTENEDOR DE ETIQUETAS / TECNOLOGIAS*/
+.tpanel-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 0;
+  margin: 7px 0 0;
+}
+/*CADA ETIQUETA INDIVIDUAL*/
+.tpanel-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--violet);
+  border: 1px solid var(--border-strong);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+/*CONTENEDOR DE ENLACES*/
+.tpanel-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+/*ESTILOS DE LOS ENLACES*/
+.tpanel-links a {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+/*ENLACES PENDIENTES SIN URL*/
+.tpanel-link-pending {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+/* =========================================================
+   📱 RESPONSIVE - TABLETS Y CELULARES
+   En pantallas menores a 900px las cartas se muestran
+   una debajo de la otra, manteniendo su tamaño visual.
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  /* ===== CONTENEDOR DE LAS CARTAS =====
+     Dejamos de usar el carrusel horizontal.
+     Las cartas ahora se organizan verticalmente.
+  */
+  .tarot-spread {
+    display: flex;
+    flex-direction: column;
+
+    /* La altura ya no queda limitada a 70vh */
+    height: auto;
+
+    /* Permitimos que la página crezca hacia abajo */
+    overflow: visible;
+
+    /* Las cartas ocupan el ancho disponible */
+    width: 50%;
+    
+    /* Separación entre una carta y otra */
+    gap: 14px;
+
+    /* Centra las cartas */
+    align-items: center;
+
+    /* Mantiene el espacio inferior */
+    padding-bottom: 20px;
+  }
+
+
+  /* ===== CARTA INDIVIDUAL =====
+     Cada carta queda debajo de la anterior.
+     No se achica por culpa del flex.
+  */
+  .tcard {
+    flex: 0 0 auto;
+
+    /* Ocupa el ancho disponible */
+    width: 100%;
+
+    /* Mantiene una altura estable */
+    min-height: 500px;
+
+    /* Evita que la carta se deforme */
+    flex-shrink: 0;
+  }
+
+
+  /* ===== PANEL DE LA CARTA ABIERTA =====
+     Esto solamente adapta la carta grande que aparece
+     cuando hacemos click en una carta.
+  */
+  .tpanel-card {
+    width: 450px, 86vw;
+    height: 750px, 74vh;
+  }
+}

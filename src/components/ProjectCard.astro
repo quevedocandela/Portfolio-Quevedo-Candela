@@ -1,0 +1,48 @@
+---
+//src/components/ProjectCard.astro
+interface Props {
+  proyecto: {
+    nombre: string;
+    estado: "terminado" | "en-construccion" | "proximamente";
+    descripcion: string;
+    stack: string[];
+    repo: string | null;
+    demo: string | null;
+  };
+}
+
+const { proyecto } = Astro.props as Props;
+
+const etiquetas = {
+  terminado: "terminado",
+  "en-construccion": "en construcción",
+  proximamente: "próximamente",
+};
+---
+
+<article class="proyecto-card">
+  <p class="nombre">{proyecto.nombre}</p>
+  <span class={`badge ${proyecto.estado}`}>{etiquetas[proyecto.estado]}</span>
+  <p class="descripcion">{proyecto.descripcion}</p>
+  <div class="stack">
+    {proyecto.stack.map((s) => <span>{s}</span>)}
+  </div>
+  <div class="links">
+    {
+      proyecto.repo ? (
+        <a href={proyecto.repo} target="_blank" rel="noopener noreferrer">
+          repo →
+        </a>
+      ) : (
+        <span class="disabled">repo (pronto)</span>
+      )
+    }
+    {
+      proyecto.demo ? (
+        <a href={proyecto.demo} target="_blank" rel="noopener noreferrer">
+          demo →
+        </a>
+      ) : null
+    }
+  </div>
+</article>

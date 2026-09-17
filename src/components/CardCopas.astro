@@ -1,0 +1,48 @@
+---
+import { perfil } from "../data/site";
+---
+
+<button class="tcard" data-id="copas" style="--card-accent:var(--lime)" aria-label="Abrir Los Copas">
+  <span class="tcard-vines" aria-hidden="true"></span>
+  <span class="tcard-stars" aria-hidden="true"></span>
+  <span class="tcard-glow" aria-hidden="true"></span>
+  <span class="corner corner-tl"></span>
+  <span class="corner corner-tr"></span>
+  <span class="corner corner-bl"></span>
+  <span class="corner corner-br"></span>
+  <svg class="tcard-icon" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M68 48 C68 82 80 100 100 100 C120 100 132 82 132 48" />
+    <line x1="100" y1="100" x2="100" y2="146" />
+    <line x1="72" y1="156" x2="128" y2="156" />
+  </svg>
+  <span class="tcard-numeral">V</span>
+  <span class="tcard-name">Las Copas</span>
+</button>
+
+<div class="tpanel" data-panel-for="copas">
+  <div class="tpanel-card">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    <button class="tpanel-close" aria-label="Cerrar">✕</button>
+
+    <div class="tpanel-scroll">
+      <div class="tpanel-fit">
+        <p class="tpanel-eyebrow">V · Las Copas</p>
+        <h2 class="tpanel-title">Contacto</h2>
+        <p class="tpanel-p">¿Trabajamos juntos?</p>
+        <p class="tpanel-p">
+          Estoy buscando mi primera oportunidad como desarrolladora. Si tenés una
+          propuesta, una devolución sobre este portfolio, o simplemente querés
+          charlar de código, escribime.
+        </p>
+        <div class="tpanel-links">
+          <a href={`mailto:${perfil.email}`}>Email</a>
+          <a href={perfil.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={perfil.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

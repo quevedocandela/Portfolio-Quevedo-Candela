@@ -1,0 +1,47 @@
+---
+import { sobreMi } from "../data/site";
+---
+
+<button class="tcard" data-id="sol" style="--card-accent:var(--lime)" aria-label="Abrir El Sol">
+  <span class="tcard-vines" aria-hidden="true"></span>
+  <span class="tcard-stars" aria-hidden="true"></span>
+  <span class="tcard-glow" aria-hidden="true"></span>
+  <span class="corner corner-tl"></span>
+  <span class="corner corner-tr"></span>
+  <span class="corner corner-bl"></span>
+  <span class="corner corner-br"></span>
+  <svg class="tcard-icon" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="46" />
+    <line x1="100" y1="14" x2="100" y2="34" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(45 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(90 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(135 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(180 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(225 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(270 100 100)" />
+    <line x1="100" y1="14" x2="100" y2="34" transform="rotate(315 100 100)" />
+  </svg>
+  <span class="tcard-numeral">I</span>
+  <span class="tcard-name">El Sol</span>
+</button>
+
+<div class="tpanel" data-panel-for="sol">
+  <div class="tpanel-card">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    <button class="tpanel-close" aria-label="Cerrar">✕</button>
+
+    <div class="tpanel-scroll">
+      <div class="tpanel-fit">
+        <p class="tpanel-eyebrow">I · El Sol</p>
+        <h2 class="tpanel-title">Sobre mí</h2>
+        {sobreMi.parrafos.map((p) => <p class="tpanel-p">{p}</p>)}
+        <ul class="tpanel-facts">
+          {sobreMi.datos.map((d) => <li><strong>{d.label}:</strong> {d.valor}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

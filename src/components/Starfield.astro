@@ -1,0 +1,296 @@
+---
+// Fondo fijo: estrellas que viajan lento + líneas de constelación entre
+// estrellas cercanas + estrellas fugaces ocasionales + parallax al mover
+// el mouse + nebulosas de color flotando + 2 planetas.
+---
+
+<canvas id="starfield" aria-hidden="true"></canvas>
+
+<div class="nebula nebula-1" aria-hidden="true"></div>
+<div class="nebula nebula-2" aria-hidden="true"></div>
+
+<div class="planet planet-1" aria-hidden="true"></div>
+<div class="planet planet-2" aria-hidden="true"></div>
+
+<style>
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .nebula {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -2;
+    filter: blur(70px);
+    opacity: 0.28;
+  }
+
+  .nebula-1 {
+    top: -10%;
+    left: 10%;
+    width: 46vw;
+    height: 46vw;
+    background: radial-gradient(circle, rgba(138, 111, 214, 0.9), transparent 70%);
+    animation: drift-1 50s ease-in-out infinite;
+  }
+
+  .nebula-2 {
+    bottom: -15%;
+    right: 5%;
+    width: 40vw;
+    height: 40vw;
+    background: radial-gradient(circle, rgba(240, 168, 196, 0.8), transparent 70%);
+    animation: drift-2 60s ease-in-out infinite;
+  }
+
+  @keyframes drift-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(6%, 8%); }
+  }
+
+  @keyframes drift-2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-8%, -5%); }
+  }
+
+  .planet {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(0.3px);
+  }
+
+  .planet-1 {
+    top: 12%;
+    left: 78%;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle at 32% 32%, #e8c99a, #b9843f 60%, #6b4a24 100%);
+    box-shadow: 0 0 40px rgba(227, 184, 115, 0.25);
+    animation: float-1 22s ease-in-out infinite;
+  }
+
+  .planet-2 {
+    top: 70%;
+    left: 8%;
+    width: 46px;
+    height: 46px;
+    background: radial-gradient(circle at 35% 30%, #cbb9f0, #8a6fd6 65%, #4c3a86 100%);
+    box-shadow: 0 0 28px rgba(138, 111, 214, 0.3);
+    animation: float-2 26s ease-in-out infinite;
+  }
+
+  @keyframes float-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-18px, 22px); }
+  }
+
+  @keyframes float-2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(16px, -18px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .planet, .nebula { animation: none; }
+  }
+
+  @media (max-width: 700px) {
+    .planet-1 { width: 56px; height: 56px; }
+    .planet-2 { width: 32px; height: 32px; }
+    .nebula { opacity: 0.18; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('starfield') as HTMLCanvasElement | null;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    type Star = {
+      x: number; y: number; r: number;
+      baseAlpha: number; phase: number; twinkleSpeed: number;
+      driftX: number; driftY: number;
+    };
+    let stars: Star[] = [];
+
+    type Link = { a: number; b: number; alpha: number };
+    let links: Link[] = [];
+
+    type ShootingStar = {
+      x: number; y: number; vx: number; vy: number; life: number; maxLife: number;
+    };
+    let shootingStars: ShootingStar[] = [];
+    let nextShootIn = randomBetween(2500, 6000);
+    let lastTime = 0;
+
+    function randomBetween(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      if (!canvas || !ctx) return;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const density = 0.00011;
+      const count = Math.round(width * height * density);
+      stars = Array.from({ length: count }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 0.05 + 0.01;
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.4 + 0.3,
+          baseAlpha: Math.random() * 0.5 + 0.35,
+          phase: Math.random() * Math.PI * 2,
+          twinkleSpeed: Math.random() * 0.6 + 0.2,
+          driftX: Math.cos(angle) * speed,
+          driftY: Math.sin(angle) * speed,
+        };
+      });
+      computeLinks();
+    }
+
+    function computeLinks() {
+      const maxDist = Math.min(width, height) * 0.09;
+      const maxDistSq = maxDist * maxDist;
+      const newLinks: Link[] = [];
+      for (let i = 0; i < stars.length; i++) {
+        let connections = 0;
+        for (let j = i + 1; j < stars.length; j++) {
+          if (connections >= 2) break;
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < maxDistSq) {
+            newLinks.push({ a: i, b: j, alpha: 1 - Math.sqrt(distSq) / maxDist });
+            connections++;
+          }
+        }
+      }
+      links = newLinks;
+    }
+
+    function spawnShootingStar() {
+      const fromLeft = Math.random() > 0.5;
+      const startY = Math.random() * height * 0.5;
+      const speed = randomBetween(9, 14);
+      shootingStars.push({
+        x: fromLeft ? -20 : width + 20,
+        y: startY,
+        vx: fromLeft ? speed : -speed,
+        vy: speed * 0.4,
+        life: 0,
+        maxLife: randomBetween(40, 60),
+      });
+    }
+
+    function draw(time: number) {
+      if (!ctx) return;
+      const delta = lastTime ? time - lastTime : 16;
+      lastTime = time;
+      ctx.clearRect(0, 0, width, height);
+
+      targetX += (mouseX - targetX) * 0.02;
+      targetY += (mouseY - targetY) * 0.02;
+      const offsetX = (targetX - width / 2) * 0.01;
+      const offsetY = (targetY - height / 2) * 0.01;
+
+      ctx.strokeStyle = 'rgba(227, 184, 115, 0.18)';
+      ctx.lineWidth = 1;
+      for (const link of links) {
+        const a = stars[link.a];
+        const b = stars[link.b];
+        if (!a || !b) continue;
+        ctx.globalAlpha = link.alpha * 0.5;
+        ctx.beginPath();
+        ctx.moveTo(a.x + offsetX, a.y + offsetY);
+        ctx.lineTo(b.x + offsetX, b.y + offsetY);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      for (const s of stars) {
+        if (!prefersReducedMotion) {
+          s.x += s.driftX;
+          s.y += s.driftY;
+          if (s.x < -5) s.x = width + 5;
+          if (s.x > width + 5) s.x = -5;
+          if (s.y < -5) s.y = height + 5;
+          if (s.y > height + 5) s.y = -5;
+        }
+
+        const twinkle = prefersReducedMotion
+          ? s.baseAlpha
+          : s.baseAlpha + Math.sin(time * 0.001 * s.twinkleSpeed + s.phase) * 0.25;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(243, 236, 255, ${Math.max(0, Math.min(1, twinkle))})`;
+        ctx.arc(s.x + offsetX, s.y + offsetY, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (!prefersReducedMotion) {
+        nextShootIn -= delta;
+        if (nextShootIn <= 0) {
+          spawnShootingStar();
+          nextShootIn = randomBetween(3500, 7000);
+        }
+
+        shootingStars = shootingStars.filter((sh) => sh.life < sh.maxLife);
+        for (const sh of shootingStars) {
+          sh.x += sh.vx;
+          sh.y += sh.vy;
+          sh.life++;
+          const alpha = 1 - sh.life / sh.maxLife;
+
+          const grad = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx * 4, sh.y - sh.vy * 4);
+          grad.addColorStop(0, `rgba(243, 236, 255, ${alpha})`);
+          grad.addColorStop(1, 'rgba(243, 236, 255, 0)');
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.moveTo(sh.x, sh.y);
+          ctx.lineTo(sh.x - sh.vx * 4, sh.y - sh.vy * 4);
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    resize();
+    if (!prefersReducedMotion) {
+      setInterval(computeLinks, 4000);
+    }
+    requestAnimationFrame(draw);
+  }
+</script>

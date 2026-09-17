@@ -1,0 +1,34 @@
+---
+import { perfil } from "../data/site";
+const anio = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© {anio} {perfil.nombre} · hecho con Astro</p>
+    <a href="#top">volver arriba ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 48px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .footer-inner a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+  .footer-inner a:hover {
+    color: var(--lime);
+  }
+</style>

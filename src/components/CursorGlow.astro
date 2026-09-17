@@ -1,0 +1,96 @@
+---
+// Halo dorado que sigue el cursor con un pequeño retraso. Se oculta solo en
+// pantallas táctiles y si el usuario prefiere movimiento reducido (ver CSS global).
+---
+
+<div class="cursor-sparkles" id="cursor-sparkles"></div>
+
+<script>
+  const sparkles = document.getElementById("cursor-sparkles");
+
+  if (sparkles) {
+    let lastX = 0;
+    let lastY = 0;
+
+    window.addEventListener("mousemove", (e) => {
+      const distance = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+
+      if (distance < 5) return;
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      for (let i = 0; i < 3; i++) {
+        const sparkle = document.createElement("span");
+
+        sparkle.className = "cursor-sparkle";
+
+        sparkle.style.left = `${e.clientX}px`;
+        sparkle.style.top = `${e.clientY}px`;
+
+        sparkle.style.setProperty(
+          "--sparkle-x",
+          `${(Math.random() - 0.5) * 24}px`,
+        );
+
+        sparkle.style.setProperty(
+          "--sparkle-y",
+          `${(Math.random() - 0.5) * 24}px`,
+        );
+
+        sparkle.innerHTML = Math.random() > 0.5 ? "✦" : "✧";
+
+        sparkles.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.remove();
+        }, 700);
+      }
+    });
+  }
+</script>
+
+<style>
+  :global(.cursor-sparkles) {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  :global(.cursor-sparkle) {
+    position: fixed;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 8px;
+
+    color: var(--lime);
+
+    pointer-events: none;
+
+    animation: sparkle-fade 700ms ease-out forwards;
+  }
+
+  @keyframes sparkle-fade {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.3);
+    }
+
+    20% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(
+          calc(-50% + var(--sparkle-x)),
+          calc(-50% + var(--sparkle-y))
+        )
+        scale(0.2);
+    }
+  }
+</style>

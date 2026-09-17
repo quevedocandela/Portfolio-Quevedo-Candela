@@ -1,0 +1,86 @@
+---
+import CardSol from "./CardSol.astro";
+import CardMundo from "./CardMundo.astro";
+import CardEstrellas from "./CardEstrellas.astro";
+import CardLuna from "./CardLuna.astro";
+import CardCopas from "./CardCopas.astro";
+---
+
+<section class="spread-section" id="spread">
+  <div class="tarot-spread">
+    <CardSol />
+    <CardMundo />
+    <CardEstrellas />
+    <CardLuna />
+    <CardCopas />
+  </div>
+</section>
+
+<script>
+  // Abrir: cada carta tiene data-id, cada panel tiene data-panel-for con el mismo valor.
+  document.querySelectorAll<HTMLElement>('.tcard').forEach((card) => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      const panel = document.querySelector<HTMLElement>(`.tpanel[data-panel-for="${id}"]`);
+      if (!panel) return;
+      panel.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Esperamos a que termine la animación de apertura de la carta
+      // ANTES de calcular el ajuste de texto, para no trabar el gesto.
+      const fit = panel.querySelector<HTMLElement>('.tpanel-fit');
+      if (fit) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        setTimeout(() => fitContent(fit), prefersReducedMotion ? 0 : 420);
+      }
+    });
+  });
+
+  // Cerrar: click en la X, Escape, o click afuera de la carta
+  document.querySelectorAll<HTMLElement>('.tpanel-close').forEach((btn) => {
+    btn.addEventListener('click', () => closePanel(btn.closest('.tpanel') as HTMLElement));
+  });
+
+  document.querySelectorAll<HTMLElement>('.tpanel').forEach((panel) => {
+    panel.addEventListener('click', (e) => {
+      if (e.target === panel) closePanel(panel);
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll<HTMLElement>('.tpanel.open').forEach(closePanel);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    const fit = document.querySelector<HTMLElement>('.tpanel.open .tpanel-fit');
+    if (fit) fitContent(fit);
+  });
+
+  function closePanel(panel: HTMLElement) {
+    panel.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Achica (o agranda un poco) el contenido para que ocupe bien el
+  // espacio de la carta, sin cortarse y sin dejar hueco de más.
+  function fitContent(body: HTMLElement) {
+    const container = body.parentElement as HTMLElement; // .tpanel-scroll
+    body.style.transform = 'scale(1)';
+    body.style.setProperty('--fit-w', '100%');
+
+    const available = container.clientHeight;
+    const needed = body.scrollHeight;
+
+    if (needed > available) {
+      const scale = Math.max(available / needed, 0.45);
+      body.style.transform = `scale(${scale})`;
+      body.style.setProperty('--fit-w', `${100 / scale}%`);
+    } else if (needed < available * 0.7) {
+      const scale = Math.min(1.25, (available / needed) * 0.85);
+      body.style.transform = `scale(${scale})`;
+      body.style.setProperty('--fit-w', `${100 / scale}%`);
+    }
+  }
+</script>

@@ -1,11 +1,31 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import TarotSpread from "../components/TarotSpread.astro";
+import Footer from "../components/Footer.astro";
 ---
-
 <Layout>
-	<Welcome />
+  <Hero />
+  <p class="manifiesto">
+     Elegí este tema para mi porfolio con la estetica del tarot porque encotré un paralelismo 
+    con mi perfil de analisis de datos. Leer una tirada de cartas es buscar patrones
+    y sentido en información dispersa - el analisis de datos, es a grandes rasgos, lo mismo. 
+    Cada carta de acá abajo revela una parte distinta de mi perfil: dale vuelta y descrubrí qué hay detrás.
+  </p>
+  <TarotSpread />
+  <Footer />
 </Layout>
+
+<style>
+  .manifiesto {
+    max-width: 900px;
+    margin: 0px auto 50px;
+    padding: 20px 24px;
+    text-align: center;
+    font-family: var(--font-elegant, 'Fraunces', serif);
+    font-style: italic;
+    font-size: clamp(1rem, 1vw, 2.0rem);
+    color: var(--text-muted);
+    line-height: 2.0;
+  } 
+</style>
