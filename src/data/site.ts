@@ -5,8 +5,8 @@ export const perfil = {
     ubicacion: "Argentina",
     email: "quevedocandela05@gmail.com",
     cvUrl: "public/CVquevedo.pdf",
-    github: "github.com/quevedocandela",
-    linkedin: "http://linkedin.com/in/candela-quevedo05",
+    github: "https://github.com/quevedocandela",
+    linkedin: "http://www.linkedin.com/in/candela-quevedo05",
     fotoUrl: "",
 };
 

@@ -257,6 +257,11 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
   display: flex;
   align-items: center;
   justify-content: center;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tpanel-scroll::-webkit-scrollbar {
+  display: none;
 }
 /*AJUSTE/ESCALADO DEL CONTENIDO DEL PANEL*/
 .tpanel-fit {
@@ -282,7 +287,7 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
 /*TEXTO PEQUEÑO SUPERIOR DEL PANEL*/
 .tpanel-eyebrow {
   font-family: var(--font-label);
-  letter-spacing: 0.1em;
+  letter-spacing: 5px;
   text-transform: uppercase;
   font-size: 0.7rem;
   color: var(--lime);
