@@ -211,8 +211,8 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
 /*CARTA GRANDE QUE APARECE DENTRO DEL PANEL*/
 .tpanel-card {
   position: relative;
-  width: 360px;
-  height: 550px;
+  width: 420px;
+  height: 590px;
   background: linear-gradient(165deg, var(--bg-elevated-2), var(--bg-elevated));
   border: 1px solid var(--border-strong);
   border-radius: 18px;
@@ -257,7 +257,13 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
   display: flex;
   align-items: center;
   justify-content: center;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+/*
+.tpanel-scroll::-webkit-scrollbar {
+  display: none;
+}*/
 /*AJUSTE/ESCALADO DEL CONTENIDO DEL PANEL*/
 .tpanel-fit {
   width: var(--fit-w, 100%);
@@ -282,7 +288,7 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
 /*TEXTO PEQUEÑO SUPERIOR DEL PANEL*/
 .tpanel-eyebrow {
   font-family: var(--font-label);
-  letter-spacing: 0.1em;
+  letter-spacing: 5px;
   text-transform: uppercase;
   font-size: 0.7rem;
   color: var(--lime);
@@ -382,7 +388,7 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
     overflow: visible;
 
     /* Las cartas ocupan el ancho disponible */
-    width: 50%;
+    width: 90%;
     
     /* Separación entre una carta y otra */
     gap: 14px;
