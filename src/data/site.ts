@@ -4,7 +4,7 @@ export const perfil = {
     tagline: "", 
     ubicacion: "Argentina",
     email: "quevedocandela05@gmail.com",
-    cvUrl: "public/CVquevedo.pdf",
+    cvUrl: "CVquevedo.pdf",
     github: "https://github.com/quevedocandela",
     linkedin: "http://www.linkedin.com/in/candela-quevedo05",
     fotoUrl: "",
