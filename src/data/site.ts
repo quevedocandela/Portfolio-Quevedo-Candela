@@ -71,7 +71,7 @@ export const experiencia = [
         titulo: "Bachiller en Comunicación",
         institucion: "ENSNA N°30 - Rojas, Buenos Aires",
         periodo: "Egresada en 2022",
-        descripcion: "No tiene que ver directamente con programación, pero fue ahí donde aprendí a comunicar ideas complejas de manera simple."
+        //descripcion: "No tiene que ver directamente con programación, pero fue ahí donde aprendí a comunicar ideas complejas de manera simple."
     },
 ];
 
