@@ -387,7 +387,7 @@ h1,h2,h3 { font-family: var(--font-display); margin:0; letter-spacing: 0.01ex; }
     overflow: visible;
 
     /* Las cartas ocupan el ancho disponible */
-    width: 50%;
+    width: 90%;
     
     /* Separación entre una carta y otra */
     gap: 14px;
