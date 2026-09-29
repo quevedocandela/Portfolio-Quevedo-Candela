@@ -28,7 +28,7 @@ export const skills = [
     { categoria: "Lenguajes", items:["Python", "JavaScript", "Java", "HTML5", "CSS3","C++ (básico)"] },
     { categoria: "Bases de datos", items: ["SQL"] },
     { categoria: "Herramientas", items: ["Git", "GitHub", "VS code"] },
-    { categoria: "Paradigmas & metodologías", items: ["POO", "Desarrollo web forntend", "Agile / Scrum"] },
+    { categoria: "Paradigmas & metodologías", items: ["POO", "Desarrollo web frontend", "Agile / Scrum"] },
 ];
 
 export const proyectos = [
@@ -62,7 +62,7 @@ export const experiencia = [
         tipo: "Educación",
         titulo: "Diplomatura en Programación y Recolección de Datos",
         institucion: "UBA - Plan Puentes",
-        periodo: "2025 - 2026 (fianlizada)",
+        periodo: "2025 - 2026 (finalizada)",
         descripcion: "Fue la primera vez que vi con claridad cómo el código puede convertir números en una historia con sentido",
     },
 
